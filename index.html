@@ -2,268 +2,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RAMY · REALITY BREAKER MODE</title>
+<title>BEYOND OMNIVERSE</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-body{
-margin:0;
-font-family:Orbitron;
-background:black;
-overflow:hidden;
-color:#00ffe5;
+body {
+    margin:0;
+    overflow:hidden;
+    font-family: Arial, sans-serif;
 }
 
-/* MATRIX */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:0;
+/* ===== MATRIX BACKGROUND ===== */
+canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    background:black;
 }
 
-/* INTRO */
-#intro{
-position:fixed;
-width:100%;
-height:100%;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:100;
-animation:fade 4s ease 4s forwards;
+/* ===== PASSWORD SCREEN ===== */
+#lockScreen {
+    position: fixed;
+    width:100%;
+    height:100%;
+    background: radial-gradient(circle, #0a0a0a, black);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    z-index:9999;
 }
 
-@keyframes fade{
-to{opacity:0;visibility:hidden;}
+#lockBox {
+    padding:20px;
+    border:1px solid #00ffcc;
+    border-radius:10px;
+    box-shadow:0 0 20px #00ffcc;
+    text-align:center;
 }
 
-.title{
-font-size:30px;
-text-shadow:0 0 20px #00ffe5;
-letter-spacing:5px;
+input {
+    padding:10px;
+    margin-top:10px;
+    background:black;
+    border:1px solid #00ffcc;
+    color:#00ffcc;
+    text-align:center;
 }
 
-/* BOOT SCREEN */
-#boot{
-position:fixed;
-width:100%;
-height:100%;
-background:black;
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:90;
+button {
+    margin-top:10px;
+    padding:10px 20px;
+    background:#00ffcc;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-/* LOGIN */
-#login{
-position:fixed;
-width:100%;
-height:100%;
-background:radial-gradient(circle,#111,#000);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:80;
+/* ===== MAIN CONTENT ===== */
+#main {
+    display:none;
+    color:white;
+    text-align:center;
+    padding-top:40px;
 }
 
-.box{
-border:1px solid #00ffe5;
-padding:25px;
-box-shadow:0 0 25px #00ffe5;
-text-align:center;
+.glow {
+    text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc;
 }
 
-input{
-padding:10px;
-background:black;
-border:1px solid #00ffe5;
-color:#00ffe5;
-text-align:center;
+/* videos */
+.videos iframe{
+    width:220px;
+    height:140px;
+    margin:10px;
+    border-radius:10px;
+    border:1px solid #00ffcc;
 }
 
-/* PROFILE */
-#profile{
-display:none;
-position:relative;
-z-index:10;
-text-align:center;
-}
-
-.glitch{
-font-size:55px;
-animation:glitch .7s infinite;
-}
-
-@keyframes glitch{
-0%{text-shadow:2px 2px red;}
-25%{text-shadow:-2px 2px cyan;}
-50%{text-shadow:2px -2px lime;}
-75%{text-shadow:-2px -2px magenta;}
-100%{text-shadow:2px 2px red;}
-}
-
-.panel{
-margin:20px auto;
-width:400px;
-padding:20px;
-border:1px solid #00ffe5;
-box-shadow:0 0 30px #00ffe5;
-}
-
-button{
-margin-top:10px;
-padding:10px;
-background:#00ffe5;
-border:none;
-cursor:pointer;
-font-weight:bold;
+/* music button */
+#musicBtn{
+    padding:10px 15px;
+    margin-top:20px;
+    background:#111;
+    color:#00ffcc;
+    border:1px solid #00ffcc;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MATRIX -->
 <canvas id="matrix"></canvas>
 
-<!-- INTRO -->
-<div id="intro">
-<div class="title">NETFLIX · REALITY BREAKER SYSTEM</div>
+<!-- PASSWORD -->
+<div id="lockScreen">
+    <div id="lockBox">
+        <h2>🔐 SYSTEM LOCKED</h2>
+        <p>Enter Access Code</p>
+        <input type="password" id="pass">
+        <br>
+        <button onclick="checkPass()">ENTER</button>
+    </div>
 </div>
 
-<!-- BOOT -->
-<div id="boot">
-<h2>AI CORE INITIALIZING...</h2>
-<p id="bootText">Loading modules...</p>
+<!-- MAIN -->
+<div id="main">
+    <h1 class="glow">BEYOND OMNIVERSE 😈💀</h1>
+    <h2 class="glow">USER: RAMY</h2>
+    <p class="glow">CYBER CINEMATIC PROFILE ACTIVE</p>
+
+    <button id="musicBtn" onclick="playMusic()">▶ PLAY MUSIC</button>
+
+    <div class="videos">
+        <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
+        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
+        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
+    </div>
 </div>
 
-<!-- LOGIN -->
-<div id="login">
-<div class="box">
-<h3>SECURITY AUTH REQUIRED</h3>
-<input type="password" id="pass">
-<br>
-<button onclick="login()">ENTER</button>
-</div>
-</div>
-
-<!-- PROFILE -->
-<div id="profile">
-
-<h1 class="glitch">RAMY</h1>
-<p>REALITY CONTROL INTERFACE</p>
-
-<div class="panel">
-<p>NAME : ramy</p>
-<p>AGE : 35</p>
-<p>STATUS : ONLINE 🟢</p>
-<p>MODE : REALITY BREAKER ACTIVE</p>
-<p>SECURITY : MAX LEVEL</p>
-</div>
-
-<button onclick="play()">PLAY SYSTEM SOUND</button>
-
-<audio id="audio">
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">
+<!-- AUDIO -->
+<audio id="audio" loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Komiku/Action_Story/Komiku_-_10_-_Battle_of_Pogs.mp3">
 </audio>
-
-</div>
 
 <script>
 
-/* AI VOICE */
-function speak(){
-let msg = new SpeechSynthesisUtterance("Welcome Ramy. Reality Breaker Mode Activated.");
-msg.rate = 0.9;
-msg.pitch = 0.8;
-speechSynthesis.speak(msg);
+/* ===== PASSWORD ===== */
+function checkPass(){
+    let p = document.getElementById("pass").value;
+    if(p === "111991"){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("main").style.display="block";
+    } else {
+        alert("WRONG CODE");
+    }
 }
 
-/* BOOT SEQUENCE */
-setTimeout(()=>{
-document.getElementById("boot").style.display="flex";
-speak();
-},4000);
-
-/* LOADING TEXT LOOP */
-let lines=[
-"Injecting cyber core...",
-"Bypassing security layers...",
-"Activating neural interface...",
-"Loading RAMY profile...",
-"System ready."
-];
-
-let i=0;
-setInterval(()=>{
-let el=document.getElementById("bootText");
-if(el && i<lines.length){
-el.innerText=lines[i];
-i++;
-}
-},1200);
-
-/* LOGIN AFTER BOOT */
-setTimeout(()=>{
-document.getElementById("boot").style.display="none";
-document.getElementById("login").style.display="flex";
-},11000);
-
-/* LOGIN */
-function login(){
-let pass=document.getElementById("pass").value;
-if(pass==="111991"){
-document.getElementById("login").style.display="none";
-document.getElementById("profile").style.display="block";
-}else{
-alert("ACCESS DENIED");
-}
+/* ===== MUSIC ===== */
+function playMusic(){
+    document.getElementById("audio").play();
 }
 
-/* MUSIC */
-function play(){
-document.getElementById("audio").play();
-}
+/* ===== MATRIX ===== */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-/* MATRIX */
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+let letters = "01RAMYBEYONDOMNIVERSE";
+letters = letters.split("");
 
-let chars="01RAMYREALITYBREAKERCYBERAI";
-chars=chars.split("");
+let fontSize = 14;
+let columns = canvas.width / fontSize;
 
-let font=14;
-let cols=canvas.width/font;
-let drops=Array(Math.floor(cols)).fill(1);
+let drops = [];
+
+for(let x=0;x<columns;x++)
+    drops[x]=1;
 
 function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="#00ffe5";
-ctx.font=font+"px monospace";
+    ctx.fillStyle="#00ffcc";
+    ctx.font=fontSize+"px monospace";
 
-for(let i=0;i<drops.length;i++){
-let text=chars[Math.floor(Math.random()*chars.length)];
-ctx.fillText(text,i*font,drops[i]*font);
+    for(let i=0;i<drops.length;i++){
+        let text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-if(drops[i]*font>canvas.height && Math.random()>0.975){
-drops[i]=0;
+        if(drops[i]*fontSize > canvas.height && Math.random()>0.975)
+            drops[i]=0;
+
+        drops[i]++;
+    }
 }
-drops[i]++;
-}
-}
-
 setInterval(draw,33);
-
 </script>
 
 </body>
