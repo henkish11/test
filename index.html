@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>RAMY CYBER METAVERSE</title>
+<title>RAMY CYBER DASHBOARD</title>
 
 <style>
 body{
@@ -10,7 +10,6 @@ margin:0;
 background:black;
 color:#00ffe5;
 font-family:Arial;
-overflow:hidden;
 }
 
 /* LOGIN */
@@ -44,67 +43,39 @@ background:black;
 border:1px solid cyan;
 color:cyan;
 cursor:pointer;
-margin:5px;
-}
-
-/* MAIN */
-#main{
-display:none;
-height:100vh;
-}
-
-/* HEADER */
-#header{
-padding:10px;
-border-bottom:1px solid cyan;
-text-align:center;
-}
-
-/* LAYOUT */
-#container{
-display:flex;
-height:calc(100vh - 60px);
-}
-
-/* SIDEBAR */
-#rooms{
-width:220px;
-border-right:1px solid cyan;
-padding:10px;
-}
-
-.roomBtn{
-width:100%;
-margin:5px 0;
-}
-
-/* CONTENT */
-#content{
-flex:1;
-padding:10px;
-}
-
-/* CHAT */
-#chat{
-height:45%;
-overflow:auto;
-border:1px solid cyan;
-padding:10px;
-}
-
-/* PROFILE */
-#profile{
-border:1px solid cyan;
-padding:10px;
 margin-top:10px;
 }
 
-/* MUSIC */
+/* DASHBOARD */
+#dash{
+display:none;
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+
+/* CARDS */
+.card{
+border:1px solid cyan;
+box-shadow:0 0 25px cyan;
+padding:15px;
+background:rgba(0,0,0,0.6);
+}
+
+/* TITLE */
+h2{
+text-align:center;
+text-shadow:0 0 20px cyan;
+}
 iframe{
 width:100%;
-height:200px;
+height:150px;
 border:none;
-margin-top:10px;
 }
 </style>
 </head>
@@ -114,50 +85,58 @@ margin-top:10px;
 <!-- LOGIN -->
 <div id="login">
 <div class="box">
-<h2>🔐 CYBER ACCESS</h2>
+<h2>🔐 RAMY ACCESS</h2>
 <input type="password" id="pass">
-<br><br>
+<br>
 <button onclick="unlock()">ENTER</button>
 </div>
 </div>
 
-<!-- MAIN -->
-<div id="main">
+<!-- DASHBOARD -->
+<div id="dash">
 
-<div id="header">
-👑 RAMY CYBER METAVERSE vFINAL 💀🔥
-</div>
+<h2>👑 RAMY CYBER DASHBOARD</h2>
 
-<div id="container">
-
-<!-- ROOMS -->
-<div id="rooms">
-<button class="roomBtn" onclick="switchRoom('main')">MAIN CORE</button>
-<button class="roomBtn" onclick="switchRoom('cyber')">CYBER ROOM</button>
-<button class="roomBtn" onclick="switchRoom('dark')">DARK ZONE</button>
-<button class="roomBtn" onclick="switchRoom('xat')">XAT PORTAL</button>
-</div>
-
-<!-- CONTENT -->
-<div id="content">
-
-<h3 id="title">ROOM: MAIN CORE</h3>
-
-<div id="chat"></div>
+<div class="grid">
 
 <!-- PROFILE -->
-<div id="profile">
-👤 NAME: RAMY<br>
-🎂 AGE: 35<br>
-🟢 STATUS: ONLINE<br>
-⚡ MODE: CYBER GOD USER<br>
-💀 LEVEL: FLAWLESS VIP ENTITY
+<div class="card">
+<h3>👤 PROFILE</h3>
+NAME: RAMY<br>
+AGE: 35<br>
+STATUS: ONLINE 🟢<br>
+MODE: CYBER VIP
 </div>
 
 <!-- MUSIC -->
+<div class="card">
 <h3>🎧 MUSIC CORE</h3>
 <iframe src="https://www.youtube.com/embed/4ulSR860HyU" allow="autoplay"></iframe>
+</div>
 
+<!-- ROOMS -->
+<div class="card">
+<h3>🌐 ROOMS</h3>
+MAIN CORE<br>
+CYBER LAB<br>
+DARK ZONE<br><br>
+<a href="https://xat.com/2ra" target="_blank">OPEN XAT ROOM</a>
+</div>
+
+<!-- SYSTEM -->
+<div class="card">
+<h3>🧠 SYSTEM</h3>
+STATUS: STABLE ✔<br>
+FIREWALL: ACTIVE<br>
+REALITY: SYNCHRONIZED
+</div>
+
+<!-- NOTES -->
+<div class="card">
+<h3>💀 CYBER NOTES</h3>
+RAMY ENTITY LOCKED IN SYSTEM<br>
+CYBER LEVEL: MAXIMUM<br>
+ACCESS: GRANTED
 </div>
 
 </div>
@@ -166,75 +145,13 @@ margin-top:10px;
 
 <script>
 
-let currentRoom="main";
-
-let rooms={
-main:[],
-cyber:[],
-dark:[]
-};
-
-// 🔐 unlock
 function unlock(){
 if(document.getElementById("pass").value==="111991"){
 document.getElementById("login").style.display="none";
-document.getElementById("main").style.display="block";
+document.getElementById("dash").style.display="block";
 }else{
 alert("❌ WRONG PASSWORD");
 }
-}
-
-// 🌐 switch rooms
-function switchRoom(r){
-currentRoom=r;
-
-document.getElementById("title").innerText="ROOM: "+r.toUpperCase();
-
-let chat=document.getElementById("chat");
-chat.innerHTML="";
-
-if(r==="xat"){
-chat.innerHTML=`
-<iframe src="https://xat.com/2ra"></iframe>
-`;
-return;
-}
-
-render();
-}
-
-// 💬 render chat
-function render(){
-let chat=document.getElementById("chat");
-chat.innerHTML="";
-
-rooms[currentRoom].forEach(m=>{
-chat.innerHTML+=m+"<br>";
-});
-}
-
-// 🧠 AI simple
-function ai(msg){
-msg=msg.toLowerCase();
-
-if(msg.includes("ramy"))
-return "👑 RAMY IS THE CORE CYBER ENTITY";
-
-if(currentRoom==="dark")
-return "☠ DARK SYSTEM ACTIVE";
-
-return "AI RESPONSE OK";
-}
-
-// 📩 send
-function send(){
-let msg=document.getElementById("msg").value;
-
-rooms[currentRoom].push("YOU: "+msg);
-rooms[currentRoom].push("AI: "+ai(msg));
-
-document.getElementById("msg").value="";
-render();
 }
 
 </script>
