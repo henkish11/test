@@ -1,265 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>RAMY - ABSOLUTE REALITY OS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REALITY WORLD - RAMY</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-body {
-    margin: 0;
-    font-family: Orbitron, sans-serif;
-    background: black;
-    color: #00fff2;
-    overflow: hidden;
+body{
+margin:0;
+background:black;
+color:#00ffe5;
+font-family:Arial;
 }
 
-/* STARFIELD */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -3;
+#chat{
+height:300px;
+overflow:auto;
+border:1px solid cyan;
+padding:10px;
+margin:20px;
 }
 
-/* MATRIX */
-.matrix {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(0,255,255,0.04),
-        rgba(0,0,0,0.05) 2px
-    );
-    z-index: -2;
+input{
+width:80%;
+padding:10px;
+background:black;
+color:cyan;
+border:1px solid cyan;
 }
 
-/* BOOT SCREEN */
-#boot {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 100;
-    animation: fade 4s forwards;
-}
-
-@keyframes fade {
-    0%{opacity:1;}
-    80%{opacity:1;}
-    100%{opacity:0;visibility:hidden;}
-}
-
-.bootText {
-    font-size: 30px;
-    text-shadow: 0 0 20px cyan;
-}
-
-/* LOCK */
-#lock {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #001a1a, black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 90;
-}
-
-.box {
-    padding: 25px;
-    border: 1px solid cyan;
-    box-shadow: 0 0 50px cyan;
-    background: rgba(0,0,0,0.8);
-    text-align: center;
-}
-
-input {
-    padding: 10px;
-    background: black;
-    border: 1px solid cyan;
-    color: cyan;
-}
-
-/* DESKTOP */
-#desktop {
-    display: none;
-    padding: 20px;
-}
-
-/* ICONS */
-.icon {
-    width: 120px;
-    height: 120px;
-    border: 1px solid cyan;
-    margin: 10px;
-    display: inline-block;
-    text-align: center;
-    line-height: 120px;
-    cursor: pointer;
-    box-shadow: 0 0 20px cyan;
-}
-
-/* WINDOW */
-.window {
-    position: absolute;
-    width: 300px;
-    height: 200px;
-    background: rgba(0,0,0,0.9);
-    border: 1px solid cyan;
-    box-shadow: 0 0 30px cyan;
-    display: none;
-    padding: 10px;
-}
-
-.title {
-    text-align: center;
-    font-size: 40px;
-    text-shadow: 0 0 20px cyan;
+button{
+padding:10px;
+background:cyan;
+border:none;
+cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="stars"></canvas>
-<div class="matrix"></div>
+<h2>🌐 REALITY WORLD - RAMY</h2>
 
-<!-- BOOT -->
-<div id="boot">
-    <div class="bootText">BOOTING REALITY OS...</div>
-</div>
+<div id="chat"></div>
 
-<!-- LOCK -->
-<div id="lock">
-    <div class="box">
-        <h2>ENTER CORE ACCESS</h2>
-        <input type="password" id="pass">
-        <br><br>
-        <button onclick="unlock()">ENTER</button>
-    </div>
-</div>
-
-<!-- DESKTOP -->
-<div id="desktop">
-
-    <div class="title">RAMY OS</div>
-
-    <div class="icon" onclick="openWin('ai')">AI</div>
-    <div class="icon" onclick="openWin('status')">STATUS</div>
-
-    <div class="window" id="ai">
-        <h3>AI CORE</h3>
-        <div id="chat" style="height:120px;overflow:auto;"></div>
-        <input id="msg" placeholder="ask AI..." style="width:100%">
-    </div>
-
-    <div class="window" id="status">
-        <h3>SYSTEM STATUS</h3>
-        RAMY: ONLINE 🟢<br>
-        MODE: BEYOND FINAL 👁️<br>
-        REALITY: STABLE<br>
-    </div>
-
-</div>
+<input id="msg" placeholder="type message...">
+<button onclick="send()">SEND</button>
 
 <script>
+async function send(){
+let msg=document.getElementById("msg").value;
 
-// UNLOCK
-function unlock(){
-    if(document.getElementById("pass").value === "111991"){
-        document.getElementById("lock").style.display = "none";
-        setTimeout(()=>{
-            document.getElementById("desktop").style.display = "block";
-        },2000);
-        voice();
-    } else {
-        alert("DENIED ❌");
-    }
-}
-
-// VOICE
-function voice(){
-    let msg = new SpeechSynthesisUtterance("Welcome Ramy. Beyond final reality OS activated.");
-    speechSynthesis.speak(msg);
-}
-
-// WINDOWS
-function openWin(id){
-    let w = document.getElementById(id);
-    w.style.display = "block";
-    w.style.top = Math.random()*300 + "px";
-    w.style.left = Math.random()*300 + "px";
-}
-
-// AI CHAT (simple offline brain)
-document.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-        let input = document.getElementById("msg");
-        if(!input) return;
-
-        let text = input.value.toLowerCase();
-        let chat = document.getElementById("chat");
-
-        let response = "";
-
-        if(text.includes("ramy")){
-            response = "RAMY = CORE ENTITY 👑";
-        }
-        else if(text.includes("who")){
-            response = "I am REALITY OS AI";
-        }
-        else if(text.includes("status")){
-            response = "ALL SYSTEMS STABLE ✔";
-        }
-        else {
-            response = "UNKNOWN QUERY...";
-        }
-
-        chat.innerHTML += "YOU: " + text + "<br>AI: " + response + "<br><br>";
-        input.value = "";
-    }
+let res=await fetch("http://localhost:3000/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:msg})
 });
 
-// STARS
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+let data=await res.json();
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+document.getElementById("chat").innerHTML +=
+"You: "+msg+"<br>AI: "+data.reply+"<br><br>";
 
-let stars = Array(120).fill().map(()=>({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    r: Math.random()*2
-}));
-
-function draw(){
-    ctx.fillStyle = "black";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = "#0ff";
-
-    stars.forEach(s=>{
-        ctx.beginPath();
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-        ctx.fill();
-        s.y += 0.3;
-        if(s.y > canvas.height) s.y = 0;
-    });
-
-    requestAnimationFrame(draw);
+document.getElementById("msg").value="";
 }
-draw();
-
 </script>
 
 </body>
