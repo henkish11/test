@@ -2,18 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>REALITY WORLD - RAMY</title>
+<title>NEXT EVOLUTION WORLD</title>
 
 <style>
 body{
 margin:0;
-font-family:Arial;
 background:black;
 color:#00ffe5;
-overflow:hidden;
+font-family:Arial;
 }
 
-/* LOGIN */
 #login{
 position:fixed;
 width:100%;
@@ -21,12 +19,11 @@ height:100%;
 display:flex;
 justify-content:center;
 align-items:center;
-background:black;
 }
 
 .box{
-border:1px solid cyan;
 padding:30px;
+border:1px solid cyan;
 box-shadow:0 0 30px cyan;
 text-align:center;
 }
@@ -36,6 +33,16 @@ padding:10px;
 background:black;
 border:1px solid cyan;
 color:cyan;
+margin:5px;
+}
+
+button{
+background:black;
+color:cyan;
+border:1px solid cyan;
+padding:10px;
+cursor:pointer;
+margin:5px;
 }
 
 /* MAIN */
@@ -44,38 +51,19 @@ display:none;
 padding:10px;
 }
 
-/* HEADER */
-#header{
-border-bottom:1px solid cyan;
-padding:10px;
-}
-
-/* ROOMS */
-button{
-background:black;
-color:cyan;
-border:1px solid cyan;
-padding:10px;
-cursor:pointer;
-margin:3px;
-}
-
-/* CHAT */
 #chat{
-height:250px;
+height:200px;
 overflow:auto;
 border:1px solid cyan;
 padding:10px;
 margin-top:10px;
 }
 
-/* INPUT */
-#msg{
-width:70%;
-padding:10px;
-background:black;
-color:cyan;
+/* USER PANEL */
+#userBox{
 border:1px solid cyan;
+padding:10px;
+margin-top:10px;
 }
 </style>
 </head>
@@ -85,9 +73,9 @@ border:1px solid cyan;
 <!-- LOGIN -->
 <div id="login">
 <div class="box">
-<h2>🔐 ENTER ACCESS CODE</h2>
+<h2>🔐 ACCESS</h2>
 <input type="password" id="pass">
-<br><br>
+<br>
 <button onclick="unlock()">ENTER</button>
 </div>
 </div>
@@ -95,29 +83,29 @@ border:1px solid cyan;
 <!-- MAIN -->
 <div id="main">
 
-<div id="header">
-<h2>👑 RAMY REALITY WORLD</h2>
-<div>
-NAME: RAMY<br>
-AGE: 35<br>
-STATUS: ONLINE 🟢<br>
-MODE: ACTIVE USER
-</div>
-</div>
+<h2>🌐 NEXT EVOLUTION WORLD</h2>
 
 <!-- ROOMS -->
-<div>
-<button onclick="switchRoom('main')">🟢 MAIN</button>
-<button onclick="switchRoom('lab')">🔵 LAB</button>
-<button onclick="switchRoom('dark')">🔴 DARK</button>
-</div>
+<button onclick="switchRoom('main')">MAIN</button>
+<button onclick="switchRoom('lab')">LAB</button>
+<button onclick="switchRoom('dark')">DARK</button>
 
 <h3 id="roomTitle">ROOM: MAIN</h3>
 
+<!-- CHAT -->
 <div id="chat"></div>
 
 <input id="msg">
 <button onclick="send()">SEND</button>
+
+<hr>
+
+<!-- USER ID LOOKUP -->
+<h3>👤 USER ID LOOKUP</h3>
+<input id="uid" placeholder="Enter User ID">
+<button onclick="getUser()">SEARCH</button>
+
+<div id="userBox">NO USER LOADED</div>
 
 </div>
 
@@ -131,11 +119,16 @@ lab:[],
 dark:[]
 };
 
-// فتح النظام
-function unlock(){
-let p=document.getElementById("pass").value;
+// 👤 Fake users database (داخل النظام فقط)
+let users={
+"1001":{name:"RAMY",age:35,status:"ONLINE 🟢",room:"MAIN"},
+"1002":{name:"ALI",age:22,status:"OFFLINE ⚫",room:"LAB"},
+"1003":{name:"DARK-X",age:99,status:"UNKNOWN ☠",room:"DARK"}
+};
 
-if(p==="111991"){
+// 🔐 login
+function unlock(){
+if(document.getElementById("pass").value==="111991"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 }else{
@@ -143,40 +136,34 @@ alert("❌ WRONG PASSWORD");
 }
 }
 
-// تغيير غرفة
+// 🌐 rooms
 function switchRoom(r){
 currentRoom=r;
 document.getElementById("roomTitle").innerText="ROOM: "+r.toUpperCase();
 render();
 }
 
-// عرض الرسائل
+// 💬 chat
 function render(){
 let chat=document.getElementById("chat");
 chat.innerHTML="";
-
 rooms[currentRoom].forEach(m=>{
 chat.innerHTML+=m+"<br>";
 });
 }
 
-// رد AI بسيط
+// 🧠 AI simple
 function ai(msg){
 msg=msg.toLowerCase();
 
-if(msg.includes("ramy"))
-return "👑 RAMY IS THE CORE USER";
+if(msg.includes("ramy")) return "👑 CORE USER DETECTED";
+if(currentRoom==="dark") return "☠ DARK SIGNAL ACTIVE";
+if(currentRoom==="lab") return "🧪 LAB PROCESS RUNNING";
 
-if(currentRoom==="dark")
-return "☠ DARK ROOM ACTIVE";
-
-if(currentRoom==="lab")
-return "🧪 LAB PROCESS DONE";
-
-return "AI RESPONSE GENERATED";
+return "AI RESPONSE OK";
 }
 
-// إرسال
+// 📩 send message
 function send(){
 let msg=document.getElementById("msg").value;
 
@@ -185,6 +172,26 @@ rooms[currentRoom].push("AI: "+ai(msg));
 
 document.getElementById("msg").value="";
 render();
+}
+
+// 👤 USER ID SEARCH
+function getUser(){
+let id=document.getElementById("uid").value;
+
+let u=users[id];
+
+let box=document.getElementById("userBox");
+
+if(u){
+box.innerHTML=`
+NAME: ${u.name}<br>
+AGE: ${u.age}<br>
+STATUS: ${u.status}<br>
+ROOM: ${u.room}
+`;
+}else{
+box.innerHTML="❌ USER NOT FOUND";
+}
 }
 
 </script>
