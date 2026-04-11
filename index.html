@@ -2,108 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ramy · DARK ACCESS</title>
+<title>RAMY · ULTIMATE ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-    margin:0;
-    overflow:hidden;
-    font-family: monospace;
-    background:black;
-    color:#00ffe1;
+body{
+margin:0;
+overflow:hidden;
+background:black;
+font-family: monospace;
+color:#00ffe1;
 }
 
-/* ===== MATRIX CANVAS ===== */
-canvas {
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:0;
+/* MATRIX */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
 }
 
-/* ===== LOGIN ===== */
-#login {
-    position:fixed;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:10;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
+/* GLOBAL SCREEN */
+.screen{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:10;
+text-align:center;
 }
 
-.box {
-    padding:30px;
-    border:1px solid #00ffe1;
-    box-shadow:0 0 25px #00ffe1;
-    text-align:center;
+/* INTRO */
+#intro{
+background:black;
+font-size:22px;
+letter-spacing:4px;
+animation:fade 5s forwards;
 }
 
-input {
-    margin-top:10px;
-    padding:10px;
-    background:black;
-    border:1px solid #00ffe1;
-    color:#00ffe1;
-    text-align:center;
-    letter-spacing:4px;
+@keyframes fade{
+0%{opacity:0}
+10%{opacity:1}
+80%{opacity:1}
+100%{opacity:0}
 }
 
-button {
-    margin-top:15px;
-    padding:10px;
-    width:100%;
-    background:#00ffe1;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
+/* LOGIN */
+#login{
+display:none;
+background:rgba(0,0,0,0.75);
+backdrop-filter:blur(10px);
 }
 
-/* ===== LOADING ===== */
-#loading {
-    position:fixed;
-    width:100%;
-    height:100%;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:black;
-    z-index:20;
+.box{
+padding:30px;
+border:1px solid #00ffe1;
+box-shadow:0 0 30px #00ffe1;
 }
 
-.bar {
-    width:300px;
-    height:10px;
-    border:1px solid #00ffe1;
-    margin-top:20px;
+input{
+padding:10px;
+margin-top:10px;
+background:black;
+border:1px solid #00ffe1;
+color:#00ffe1;
+text-align:center;
+letter-spacing:4px;
 }
 
-.fill {
-    height:100%;
-    width:0%;
-    background:#00ffe1;
+button{
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#00ffe1;
+border:none;
+font-weight:bold;
+cursor:pointer;
 }
 
-/* ===== MAIN ===== */
-#main {
-    display:none;
-    position:relative;
-    z-index:5;
-    text-align:center;
-    padding-top:80px;
+/* SCAN */
+#scan{
+display:none;
+font-size:18px;
+letter-spacing:3px;
 }
 
-h1 {
-    letter-spacing:5px;
+.bar{
+width:320px;
+height:10px;
+border:1px solid #00ffe1;
+margin-top:20px;
+}
+.fill{
+height:100%;
+width:0%;
+background:#00ffe1;
 }
 
-.glow {
-    text-shadow:0 0 10px #00ffe1;
+/* MAIN */
+#main{
+display:none;
+padding-top:70px;
+z-index:5;
+}
+
+.glow{
+text-shadow:0 0 12px #00ffe1;
+}
+
+.glitch{
+animation:glitch 0.8s infinite;
+}
+
+@keyframes glitch{
+0%{transform:translate(0)}
+20%{transform:translate(-1px,1px)}
+40%{transform:translate(1px,-1px)}
+60%{transform:translate(-2px,1px)}
+80%{transform:translate(1px,2px)}
+100%{transform:translate(0)}
+}
+
+/* ALERT FLASH */
+.flash{
+position:fixed;
+width:100%;
+height:100%;
+background:red;
+opacity:0;
+z-index:9;
+animation:flash 0.2s infinite;
+}
+
+@keyframes flash{
+0%{opacity:0}
+50%{opacity:0.08}
+100%{opacity:0}
+}
+
+/* TYPING */
+#type{
+margin-top:20px;
+font-size:14px;
+color:#00ffe1;
+white-space:pre;
 }
 </style>
 </head>
@@ -111,95 +156,143 @@ h1 {
 <body>
 
 <canvas id="matrix"></canvas>
+<div class="flash"></div>
+
+<!-- INTRO -->
+<div id="intro" class="screen">
+    <div class="glitch">NETFLIX · CIA · DARK SYSTEM</div>
+    <div>INITIALIZING RAMY CORE...</div>
+</div>
 
 <!-- LOGIN -->
-<div id="login">
+<div id="login" class="screen">
     <div class="box">
-        <h2 class="glow">DARK ACCESS</h2>
+        <h2 class="glow">CLASSIFIED ACCESS</h2>
+        <p>AGENT: RAMY</p>
         <input id="pass" type="password" placeholder="ENTER CODE">
-        <button onclick="startHack()">ENTER</button>
+        <button onclick="start()">UNLOCK SYSTEM</button>
     </div>
 </div>
 
-<!-- LOADING -->
-<div id="loading">
-    <h2 class="glow">HACK SYSTEM LOADING...</h2>
+<!-- SCAN -->
+<div id="scan" class="screen">
+    <div class="glow">SCANNING / DECRYPTING PROFILE...</div>
     <div class="bar"><div class="fill" id="fill"></div></div>
 </div>
 
 <!-- MAIN -->
-<div id="main">
-    <h1 class="glow">WELCOME RAMY</h1>
-    <p>STATUS: ONLINE • LEVEL: VIP • AGE: 35</p>
-    <p>SYSTEM: DARK NET INTERFACE ACTIVE</p>
+<div id="main" class="screen">
+    <h1 class="glitch glow">WELCOME RAMY</h1>
+
+    <div id="type"></div>
 </div>
 
-<!-- SOUND -->
-<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
+<!-- SOUNDS -->
+<audio id="ok">
+<source src="https://www.soundjay.com/buttons/sounds/button-29.mp3">
+</audio>
+
+<audio id="success">
+<source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
+</audio>
 
 <script>
 
-/* ===== MATRIX ===== */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let letters = "01HACKSYSTEMRAMYVIP###$$$@@@";
-letters = letters.split("");
+let chars="RAMYVIPNETFLIXCIAHACKSYSTEM0101$$##";
+chars=chars.split("");
 
-let fontSize = 14;
-let columns = canvas.width / fontSize;
-let drops = [];
+let font=14;
+let cols=canvas.width/font;
+let drops=Array(Math.floor(cols)).fill(1);
 
-for(let x=0;x<columns;x++) drops[x]=1;
+function matrix(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
-function drawMatrix(){
-    ctx.fillStyle="rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#00ffe1";
+ctx.font=font+"px monospace";
 
-    ctx.fillStyle="#00ffe1";
-    ctx.font=fontSize+"px monospace";
+for(let i=0;i<drops.length;i++){
+let t=chars[Math.floor(Math.random()*chars.length)];
+ctx.fillText(t,i*font,drops[i]*font);
 
-    for(let i=0;i<drops.length;i++){
-        let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-        if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
-            drops[i]=0;
-        }
-        drops[i]++;
-    }
+if(drops[i]*font>canvas.height && Math.random()>0.975){
+drops[i]=0;
 }
-setInterval(drawMatrix,33);
+drops[i]++;
+}
+}
+setInterval(matrix,33);
 
-/* ===== HACK SEQUENCE ===== */
-function startHack(){
-    let pass = document.getElementById("pass").value;
-    if(pass !== "111991"){
-        alert("ACCESS DENIED");
-        return;
-    }
+/* INTRO FLOW */
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+document.getElementById("login").style.display="flex";
+},5000);
 
-    document.getElementById("sound").play();
+/* TYPE EFFECT */
+let lines=[
+"SYSTEM: ONLINE",
+"DECRYPTING USER DATA...",
+"ACCESS LEVEL: VIP CLASSIFIED",
+"LOCATION: UNKNOWN",
+"STATUS: RAMY ACTIVE",
+"SECURITY: OVERRIDE SUCCESS"
+];
 
-    document.getElementById("login").style.display="none";
-    document.getElementById("loading").style.display="flex";
+let i=0,j=0;
+function type(){
+if(i<lines.length){
+if(j<lines[i].length){
+document.getElementById("type").innerHTML+=lines[i][j];
+j++;
+setTimeout(type,30);
+}else{
+document.getElementById("type").innerHTML+="\n";
+i++; j=0;
+setTimeout(type,300);
+}
+}
+}
 
-    let fill = document.getElementById("fill");
-    let p = 0;
+/* START */
+function start(){
 
-    let t = setInterval(()=>{
-        p++;
-        fill.style.width = p+"%";
+if(document.getElementById("pass").value!=="111991"){
+alert("ACCESS DENIED");
+return;
+}
 
-        if(p>=100){
-            clearInterval(t);
-            document.getElementById("loading").style.display="none";
-            document.getElementById("main").style.display="block";
-        }
-    },30);
+document.getElementById("ok").play().catch(()=>{});
+
+document.getElementById("login").style.display="none";
+document.getElementById("scan").style.display="flex";
+
+let fill=document.getElementById("fill");
+let p=0;
+
+let t=setInterval(()=>{
+p++;
+fill.style.width=p+"%";
+
+if(p>=100){
+clearInterval(t);
+
+document.getElementById("scan").style.display="none";
+document.getElementById("main").style.display="flex";
+
+document.getElementById("success").play().catch(()=>{});
+
+type();
+}
+},20);
 }
 </script>
 
