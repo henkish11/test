@@ -3,165 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Henkish · Space</title>
+<title>VIP Profile</title>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+@import url("https://fonts.googleapis.com/css?family=Lora:400,700");
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    background-color: #101010;
-    background-image: linear-gradient(rgba(16, 16, 16, 0.8), rgba(16, 16, 16, 0.8)), url('https://xatimg.com/image/AeKGBMT8u33T.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     margin: 0;
-    color: white;
-    overflow-x: hidden;
+    font-family: Lora, serif;
+    overflow: hidden;
 }
 
-/* شاشة القفل */
-#lockScreen {
+/* ===== Animated Background ===== */
+.bg {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.95);
+    background: url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover no-repeat;
+    filter: brightness(0.4) contrast(1.2);
+    animation: zoom 20s infinite alternate;
+}
+
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+/* ===== Login Overlay ===== */
+#login {
+    position: fixed;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    z-index: 9999;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(10px);
+    z-index: 999;
 }
 
-#lockScreen input {
-    padding: 12px;
-    font-size: 18px;
+.login-box {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #00fff2;
+    box-shadow: 0 0 25px #00fff2;
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
+    width: 300px;
+}
+
+.login-box h2 {
+    color: #00fff2;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.login-box input {
+    width: 90%;
+    padding: 10px;
     border: none;
     outline: none;
+    margin-top: 10px;
     border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
 }
 
-#lockScreen button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: #ffffff;
+.login-box button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
     border: none;
     cursor: pointer;
+    background: #00fff2;
+    color: black;
     font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
 }
 
-h1, p {
-    text-align: center;
-    line-height: 1.8;
-    font-family: Lora, serif;
-    margin: 10px 0;
+.login-box button:hover {
+    background: #00c2b8;
 }
 
-.glowIn {
+/* ===== Main Content ===== */
+#content {
+    display: none;
+    position: relative;
     color: white;
-    white-space: pre-wrap;
+    text-align: center;
+    padding-top: 80px;
 }
 
 .glowIn span {
     display: inline-block;
     opacity: 0;
-    animation: glow-in 0.8s both;
+    animation: glow 0.8s forwards;
 }
 
-@keyframes glow-in {
-    from { opacity: 0; }
-    65% { opacity: 1; text-shadow: 0 0 25px white; }
-    75% { opacity: 1; }
-    to { opacity: 0.7; }
+@keyframes glow {
+    from { opacity: 0; transform: translateY(10px); }
+    60% { opacity: 1; text-shadow: 0 0 20px #00fff2; }
+    to { opacity: 1; }
 }
 
 .videos {
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap;
     margin-top: 30px;
-    max-width: 1000px;
-    padding: 20px;
 }
 
-.videos iframe {
+iframe {
     width: 200px;
-    height: 135px;
-    border: none;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.videos iframe:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    height: 140px;
+    border-radius: 10px;
+    border: 1px solid #00fff2;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 شاشة القفل -->
-<div id="lockScreen">
-    <h2>🔐 Enter Password</h2>
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="checkPass()">Enter</button>
-    <p id="error" style="color:red;"></p>
+<div class="bg"></div>
+
+<!-- ===== LOGIN ===== -->
+<div id="login">
+    <div class="login-box">
+        <h2>VIP ACCESS</h2>
+        <input type="password" id="pass" placeholder="Enter Password">
+        <button onclick="checkPass()">Unlock</button>
+        <p id="msg" style="color:red;"></p>
+    </div>
 </div>
 
-<!-- 💎 المحتوى -->
-<div id="content" style="display:none;">
+<!-- ===== CONTENT ===== -->
+<div id="content">
 
-<h1 class="glowIn">Hello,ժօLLվ ,</h1>
-<p class="glowIn">I'm xats trader and I love trading very much and selling and buying ID's</p>
-<p class="glowIn">iEgypt (106080) ❤️ DodoLove14 (1541187216)</p>
-<p class="glowIn">нєηкιѕн ❤️ ժօLLվ</p>
+    <h1 class="glowIn">Welcome Ramy</h1>
+    <p class="glowIn">VIP Hacker Profile Activated</p>
 
-<div class="videos">
-    <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
-    <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
-    <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
-</div>
-
+    <div class="videos">
+        <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
+        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
+    </div>
 </div>
 
 <script>
-"use strict";
+const correctPass = "111991";
 
-// 🔐 كلمة السر
 function checkPass() {
-    let pass = document.getElementById("password").value;
-
-    if(pass === "111991") {
-        document.getElementById("lockScreen").style.display = "none";
+    let input = document.getElementById("pass").value;
+    if(input === correctPass){
+        document.getElementById("login").style.display = "none";
         document.getElementById("content").style.display = "block";
-
-        // تشغيل الانيميشن بعد الفتح
-        startGlow();
+        animateText();
     } else {
-        document.getElementById("error").innerText = "❌ Wrong Password";
+        document.getElementById("msg").innerText = "Wrong Password!";
     }
 }
 
-// ✨ تشغيل تأثير النص بعد الفتح
-function startGlow() {
-    let glowInTexts = document.querySelectorAll(".glowIn");
-
-    glowInTexts.forEach(glowInText => {
-        let letters = glowInText.textContent.split("");
-        glowInText.textContent = "";
-
-        letters.forEach((letter, i) => {
+function animateText(){
+    document.querySelectorAll(".glowIn").forEach(el=>{
+        let letters = el.textContent.split("");
+        el.textContent = "";
+        letters.forEach((l,i)=>{
             let span = document.createElement("span");
-            span.textContent = letter;
-            span.style.animationDelay = `${i * 0.05}s`;
-            glowInText.append(span);
+            span.textContent = l;
+            span.style.animationDelay = (i*0.05)+"s";
+            el.appendChild(span);
         });
     });
 }
