@@ -2,286 +2,204 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>ramy · DARK ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramy VIP Profile</title>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Lora:400,700");
-
 body {
-    margin: 0;
-    font-family: Lora, serif;
-    overflow: hidden;
-    color: white;
+    margin:0;
+    overflow:hidden;
+    font-family: monospace;
+    background:black;
+    color:#00ffe1;
 }
 
-/* ===== BACKGROUND IMAGE ===== */
-.bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover no-repeat;
-    filter: brightness(0.35) contrast(1.2);
-    animation: zoom 25s infinite alternate;
-}
-
-@keyframes zoom {
-    from { transform: scale(1); }
-    to { transform: scale(1.25); }
-}
-
-/* ===== FLOATING PARTICLES ===== */
+/* ===== MATRIX CANVAS ===== */
 canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
 }
 
 /* ===== LOGIN ===== */
 #login {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(15px);
-    z-index: 999;
+    position:fixed;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:10;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
 }
 
-.login-box {
-    background: rgba(0,0,0,0.7);
-    border: 1px solid #00fff2;
-    box-shadow: 0 0 30px #00fff2;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    width: 340px;
-    animation: glitch 2s infinite;
+.box {
+    padding:30px;
+    border:1px solid #00ffe1;
+    box-shadow:0 0 25px #00ffe1;
+    text-align:center;
 }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-1px, 1px); }
-    40% { transform: translate(1px, -1px); }
-    60% { transform: translate(-1px, -1px); }
-    80% { transform: translate(1px, 1px); }
-    100% { transform: translate(0); }
+input {
+    margin-top:10px;
+    padding:10px;
+    background:black;
+    border:1px solid #00ffe1;
+    color:#00ffe1;
+    text-align:center;
+    letter-spacing:4px;
 }
 
-.login-box h2 {
-    color: #00fff2;
-    letter-spacing: 4px;
+button {
+    margin-top:15px;
+    padding:10px;
+    width:100%;
+    background:#00ffe1;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.login-box input {
-    width: 90%;
-    padding: 12px;
-    margin-top: 15px;
-    border-radius: 8px;
-    border: none;
-    text-align: center;
-    font-size: 16px;
+/* ===== LOADING ===== */
+#loading {
+    position:fixed;
+    width:100%;
+    height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:black;
+    z-index:20;
 }
 
-.login-box button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 10px;
-    background: #00fff2;
-    border: none;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
+.bar {
+    width:300px;
+    height:10px;
+    border:1px solid #00ffe1;
+    margin-top:20px;
 }
 
-.login-box button:hover {
-    background: #00c2b8;
+.fill {
+    height:100%;
+    width:0%;
+    background:#00ffe1;
 }
 
-/* ===== MAIN CONTENT ===== */
-#content {
-    display: none;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding-top: 50px;
+/* ===== MAIN ===== */
+#main {
+    display:none;
+    position:relative;
+    z-index:5;
+    text-align:center;
+    padding-top:80px;
 }
 
-/* ===== TEXT ANIMATION ===== */
-.glowIn span {
-    display: inline-block;
-    opacity: 0;
-    animation: glow 1s forwards;
+h1 {
+    letter-spacing:5px;
 }
 
-@keyframes glow {
-    from { opacity: 0; transform: translateY(10px); }
-    60% { opacity: 1; text-shadow: 0 0 25px #00fff2; }
-    to { opacity: 1; }
-}
-
-/* ===== PROFILE CARD ===== */
-.card {
-    background: rgba(0,0,0,0.6);
-    border: 1px solid #00fff2;
-    box-shadow: 0 0 25px #00fff2;
-    margin: auto;
-    width: 80%;
-    max-width: 800px;
-    padding: 20px;
-    border-radius: 15px;
-}
-
-/* ===== VIDEOS ===== */
-.videos {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-iframe {
-    width: 220px;
-    height: 150px;
-    border-radius: 10px;
-    border: 1px solid #00fff2;
-}
-
-/* ===== MUSIC BUTTON ===== */
-.music-btn {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background: #00fff2;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
+.glow {
+    text-shadow:0 0 10px #00ffe1;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
 <canvas id="matrix"></canvas>
 
 <!-- LOGIN -->
 <div id="login">
-    <div class="login-box">
-        <h2>VIP ACCESS</h2>
-        <input type="password" id="pass" placeholder="Enter Password">
-        <button onclick="checkPass()">UNLOCK</button>
-        <p id="msg" style="color:red;"></p>
+    <div class="box">
+        <h2 class="glow">DARK ACCESS</h2>
+        <input id="pass" type="password" placeholder="ENTER CODE">
+        <button onclick="startHack()">ENTER</button>
     </div>
 </div>
 
-<!-- CONTENT -->
-<div id="content">
-
-<div class="card">
-
-    <h1 class="glowIn">Hello, ramy</h1>
-
-    <p class="glowIn">I'm xats trader and I love trading very much and selling and buying ID's</p>
-
-    <p class="glowIn">iEgypt (106080) ❤️ DodoLove14 (1541187216)</p>
-
-    <p class="glowIn">ramy ❤️ Dodo</p>
-
-    <p class="glowIn">Age: 35</p>
-    <p class="glowIn">Status: Online</p>
-    <p class="glowIn">VIP Hacker Profile</p>
-
-    <button class="music-btn" onclick="toggleMusic()">Play / Pause Music</button>
-
-    <div class="videos">
-        <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
-        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
-        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
-    </div>
-
+<!-- LOADING -->
+<div id="loading">
+    <h2 class="glow">HACK SYSTEM LOADING...</h2>
+    <div class="bar"><div class="fill" id="fill"></div></div>
 </div>
 
+<!-- MAIN -->
+<div id="main">
+    <h1 class="glow">WELCOME RAMY</h1>
+    <p>STATUS: ONLINE • LEVEL: VIP • AGE: 35</p>
+    <p>SYSTEM: DARK NET INTERFACE ACTIVE</p>
 </div>
 
-<!-- MUSIC -->
-<iframe id="music" width="0" height="0"
-src="https://www.youtube.com/embed/4ulSR860HyU?enablejsapi=1"
-allow="autoplay"></iframe>
+<!-- SOUND -->
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
-const correctPass = "111991";
-let musicOn = false;
 
-function checkPass() {
-    let input = document.getElementById("pass").value;
-    if(input === correctPass){
-        document.getElementById("login").style.display = "none";
-        document.getElementById("content").style.display = "block";
-        animateText();
-        startMatrix();
-    } else {
-        document.getElementById("msg").innerText = "Access Denied!";
-    }
-}
+/* ===== MATRIX ===== */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-function animateText(){
-    document.querySelectorAll(".glowIn").forEach(el=>{
-        let letters = el.textContent.split("");
-        el.textContent = "";
-        letters.forEach((l,i)=>{
-            let span = document.createElement("span");
-            span.textContent = l;
-            span.style.animationDelay = (i*0.03)+"s";
-            el.appendChild(span);
-        });
-    });
-}
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-/* MUSIC */
-function toggleMusic(){
-    let frame = document.getElementById("music");
-    frame.src = musicOn ? frame.src : frame.src + "&autoplay=1";
-    musicOn = true;
-}
+let letters = "01HACKSYSTEMRAMYVIP###$$$@@@";
+letters = letters.split("");
 
-/* MATRIX BACKGROUND */
-function startMatrix(){
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+let drops = [];
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+for(let x=0;x<columns;x++) drops[x]=1;
 
-    let letters = "01RAMYVIPHACKER".split("");
-    let fontSize = 14;
-    let columns = canvas.width / fontSize;
-    let drops = [];
+function drawMatrix(){
+    ctx.fillStyle="rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    for(let i=0;i<columns;i++) drops[i]=1;
+    ctx.fillStyle="#00ffe1";
+    ctx.font=fontSize+"px monospace";
 
-    function draw(){
-        ctx.fillStyle = "rgba(0,0,0,0.05)";
-        ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<drops.length;i++){
+        let text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-        ctx.fillStyle = "#00fff2";
-        ctx.font = fontSize+"px monospace";
-
-        for(let i=0;i<drops.length;i++){
-            let text = letters[Math.floor(Math.random()*letters.length)];
-            ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-            if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
-                drops[i]=0;
-            }
-            drops[i]++;
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
+            drops[i]=0;
         }
+        drops[i]++;
     }
-    setInterval(draw,33);
+}
+setInterval(drawMatrix,33);
+
+/* ===== HACK SEQUENCE ===== */
+function startHack(){
+    let pass = document.getElementById("pass").value;
+    if(pass !== "111991"){
+        alert("ACCESS DENIED");
+        return;
+    }
+
+    document.getElementById("sound").play();
+
+    document.getElementById("login").style.display="none";
+    document.getElementById("loading").style.display="flex";
+
+    let fill = document.getElementById("fill");
+    let p = 0;
+
+    let t = setInterval(()=>{
+        p++;
+        fill.style.width = p+"%";
+
+        if(p>=100){
+            clearInterval(t);
+            document.getElementById("loading").style.display="none";
+            document.getElementById("main").style.display="block";
+        }
+    },30);
 }
 </script>
 
