@@ -2,187 +2,194 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BEYOND OMNIVERSE</title>
+<title>Ramy Profile - Cyberpunk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body {
-    margin:0;
-    overflow:hidden;
-    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: Orbitron, sans-serif;
+    overflow: hidden;
+    background: black;
+    color: white;
 }
 
-/* ===== MATRIX BACKGROUND ===== */
+/* MATRIX CANVAS */
 canvas {
     position: fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-    background:black;
+    top: 0;
+    left: 0;
+    z-index: -2;
 }
 
-/* ===== PASSWORD SCREEN ===== */
+/* DARK OVERLAY */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,255,255,0.08), black 70%);
+    z-index: -1;
+}
+
+/* PASSWORD SCREEN */
 #lockScreen {
     position: fixed;
-    width:100%;
-    height:100%;
-    background: radial-gradient(circle, #0a0a0a, black);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    color:white;
-    z-index:9999;
+    width: 100%;
+    height: 100%;
+    background: url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
 }
 
-#lockBox {
-    padding:20px;
-    border:1px solid #00ffcc;
-    border-radius:10px;
-    box-shadow:0 0 20px #00ffcc;
-    text-align:center;
+.lockBox {
+    background: rgba(0,0,0,0.7);
+    padding: 30px;
+    border: 1px solid cyan;
+    box-shadow: 0 0 25px cyan;
+    text-align: center;
 }
 
 input {
-    padding:10px;
-    margin-top:10px;
-    background:black;
-    border:1px solid #00ffcc;
-    color:#00ffcc;
-    text-align:center;
+    padding: 10px;
+    width: 200px;
+    background: black;
+    border: 1px solid cyan;
+    color: cyan;
+    text-align: center;
 }
 
 button {
-    margin-top:10px;
-    padding:10px 20px;
-    background:#00ffcc;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: cyan;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-/* ===== MAIN CONTENT ===== */
-#main {
-    display:none;
-    color:white;
-    text-align:center;
-    padding-top:40px;
+/* MAIN CONTENT */
+#content {
+    display: none;
+    text-align: center;
+    padding-top: 80px;
 }
 
-.glow {
-    text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc;
+h1 {
+    font-size: 40px;
+    text-shadow: 0 0 20px cyan;
 }
 
-/* videos */
-.videos iframe{
-    width:220px;
-    height:140px;
-    margin:10px;
-    border-radius:10px;
-    border:1px solid #00ffcc;
+.info {
+    margin-top: 10px;
+    line-height: 1.8;
+    opacity: 0.9;
 }
 
-/* music button */
-#musicBtn{
-    padding:10px 15px;
-    margin-top:20px;
-    background:#111;
-    color:#00ffcc;
-    border:1px solid #00ffcc;
-    cursor:pointer;
+/* MUSIC PANEL */
+.music {
+    margin-top: 30px;
+}
+
+audio {
+    width: 300px;
+    margin: 10px;
+    filter: drop-shadow(0 0 10px cyan);
 }
 </style>
 </head>
 
 <body>
 
-<!-- MATRIX -->
 <canvas id="matrix"></canvas>
+<div class="overlay"></div>
 
-<!-- PASSWORD -->
+<!-- LOCK SCREEN -->
 <div id="lockScreen">
-    <div id="lockBox">
-        <h2>🔐 SYSTEM LOCKED</h2>
-        <p>Enter Access Code</p>
-        <input type="password" id="pass">
+    <div class="lockBox">
+        <h2>ENTER ACCESS CODE</h2>
+        <input type="password" id="pass" placeholder="••••••••">
         <br>
-        <button onclick="checkPass()">ENTER</button>
+        <button onclick="checkPass()">UNLOCK</button>
     </div>
 </div>
 
-<!-- MAIN -->
-<div id="main">
-    <h1 class="glow">BEYOND OMNIVERSE 😈💀</h1>
-    <h2 class="glow">USER: RAMY</h2>
-    <p class="glow">CYBER CINEMATIC PROFILE ACTIVE</p>
+<!-- MAIN CONTENT -->
+<div id="content">
+    <h1>RAMY</h1>
 
-    <button id="musicBtn" onclick="playMusic()">▶ PLAY MUSIC</button>
+    <div class="info">
+        Age: 35<br>
+        Status: ONLINE 🟢<br>
+        Mode: CYBERPUNK FINAL EVOLUTION 😈<br>
+        Identity: SYSTEM USER / DARK PROFILE NODE
+    </div>
 
-    <div class="videos">
-        <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
-        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
-        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
+    <div class="music">
+        <h3>Music Core</h3>
+
+        <!-- MP3 EXAMPLES (replace links with your files) -->
+        <audio controls autoplay loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+
+        <audio controls loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        </audio>
     </div>
 </div>
-
-<!-- AUDIO -->
-<audio id="audio" loop>
-    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Komiku/Action_Story/Komiku_-_10_-_Battle_of_Pogs.mp3">
-</audio>
 
 <script>
-
-/* ===== PASSWORD ===== */
+// PASSWORD
 function checkPass(){
     let p = document.getElementById("pass").value;
     if(p === "111991"){
-        document.getElementById("lockScreen").style.display="none";
-        document.getElementById("main").style.display="block";
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("content").style.display = "block";
     } else {
-        alert("WRONG CODE");
+        alert("ACCESS DENIED ❌");
     }
 }
 
-/* ===== MUSIC ===== */
-function playMusic(){
-    document.getElementById("audio").play();
-}
-
-/* ===== MATRIX ===== */
+// MATRIX EFFECT
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
-let letters = "01RAMYBEYONDOMNIVERSE";
+let letters = "01RAMYCYBERPUNKHACKER$#@%&";
 letters = letters.split("");
 
 let fontSize = 14;
 let columns = canvas.width / fontSize;
 
 let drops = [];
-
-for(let x=0;x<columns;x++)
-    drops[x]=1;
+for(let x = 0; x < columns; x++)
+    drops[x] = 1;
 
 function draw(){
-    ctx.fillStyle="rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle="#00ffcc";
-    ctx.font=fontSize+"px monospace";
+    ctx.fillStyle = "#0ff";
+    ctx.font = fontSize + "px monospace";
 
-    for(let i=0;i<drops.length;i++){
+    for(let i = 0; i < drops.length; i++){
         let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
 
-        if(drops[i]*fontSize > canvas.height && Math.random()>0.975)
-            drops[i]=0;
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
 
         drops[i]++;
     }
 }
-setInterval(draw,33);
+setInterval(draw, 33);
 </script>
 
 </body>
