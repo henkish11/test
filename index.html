@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RAMY | CYBERPUNK LEVEL 2</title>
+<title>RAMY | CYBERPUNK VIP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -16,6 +16,7 @@ body {
     background: black;
 }
 
+/* MATRIX BACKGROUND */
 canvas {
     position: fixed;
     top: 0;
@@ -23,7 +24,7 @@ canvas {
     z-index: -2;
 }
 
-/* LOGIN */
+/* LOGIN SCREEN */
 #login {
     position: fixed;
     width: 100%;
@@ -59,7 +60,7 @@ canvas {
 #profile {
     display: none;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .glow {
@@ -82,6 +83,11 @@ canvas {
     border: 1px solid rgba(0,255,229,0.3);
     background: rgba(0,0,0,0.5);
     border-radius: 10px;
+}
+
+audio {
+    width: 100%;
+    margin-top: 10px;
 }
 
 button {
@@ -115,28 +121,31 @@ button {
         <p>👤 Name: Ramy</p>
         <p>🎂 Age: 35</p>
         <p>🟢 Status: ONLINE</p>
-        <p>💠 Mode: CYBERPUNK VIP LEVEL 2</p>
+        <p>💠 Mode: CYBERPUNK VIP</p>
     </div>
 
     <!-- SONG 1 -->
     <div class="song">
         <p>🎵 الحب الأبدي</p>
-        <audio id="s1" src="love_eternal.mp3"></audio>
-        <button onclick="toggle('s1')">PLAY / PAUSE</button>
+        <audio controls>
+            <source src="love_eternal.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <!-- SONG 2 -->
     <div class="song">
         <p>🎵 أصالة - شايفه فيك</p>
-        <audio id="s2" src="assala_shayfa_fek.mp3"></audio>
-        <button onclick="toggle('s2')">PLAY / PAUSE</button>
+        <audio controls>
+            <source src="assala_shayfa_fek.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <!-- SONG 3 -->
     <div class="song">
         <p>🎵 قلبي محارب - أمين خطاب</p>
-        <audio id="s3" src="amin_khattab_qalbi_mohareb.mp3"></audio>
-        <button onclick="toggle('s3')">PLAY / PAUSE</button>
+        <audio controls>
+            <source src="amin_khattab_qalbi_mohareb.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
 </div>
@@ -154,17 +163,6 @@ function checkPass(){
     }
 }
 
-/* AUDIO CONTROL */
-function toggle(id){
-    let audio = document.getElementById(id);
-
-    if(audio.paused){
-        audio.play();
-    } else {
-        audio.pause();
-    }
-}
-
 /* MATRIX EFFECT */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
@@ -172,7 +170,7 @@ const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
-let letters = "RAMYLOVEHACKER010101";
+let letters = "RAMYCYBERVIP010101";
 letters = letters.split("");
 
 let fontSize = 14;
