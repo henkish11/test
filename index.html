@@ -2,298 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RAMY · ULTIMATE ACCESS</title>
+<title>RAMY | CYBERPUNK PROFILE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-margin:0;
-overflow:hidden;
-background:black;
-font-family: monospace;
-color:#00ffe1;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
+    color: #00ffe5;
 }
 
-/* MATRIX */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:0;
+/* MATRIX BACKGROUND */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: black;
 }
 
-/* GLOBAL SCREEN */
-.screen{
-position:fixed;
-width:100%;
-height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:10;
-text-align:center;
+/* LOGIN SCREEN */
+#login {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
 }
 
-/* INTRO */
-#intro{
-background:black;
-font-size:22px;
-letter-spacing:4px;
-animation:fade 5s forwards;
+#login input {
+    padding: 12px;
+    border: 1px solid #00ffe5;
+    background: transparent;
+    color: #00ffe5;
+    text-align: center;
+    margin: 10px;
+    font-size: 18px;
 }
 
-@keyframes fade{
-0%{opacity:0}
-10%{opacity:1}
-80%{opacity:1}
-100%{opacity:0}
+#login button {
+    padding: 10px 25px;
+    background: #00ffe5;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-/* LOGIN */
-#login{
-display:none;
-background:rgba(0,0,0,0.75);
-backdrop-filter:blur(10px);
+/* PROFILE */
+#profile {
+    display: none;
+    text-align: center;
+    padding-top: 80px;
 }
 
-.box{
-padding:30px;
-border:1px solid #00ffe1;
-box-shadow:0 0 30px #00ffe1;
+.glow {
+    text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
 }
 
-input{
-padding:10px;
-margin-top:10px;
-background:black;
-border:1px solid #00ffe1;
-color:#00ffe1;
-text-align:center;
-letter-spacing:4px;
+.box {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid rgba(0,255,229,0.4);
+    display: inline-block;
+    background: rgba(0,0,0,0.5);
 }
 
-button{
-margin-top:10px;
-padding:10px;
-width:100%;
-background:#00ffe1;
-border:none;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* SCAN */
-#scan{
-display:none;
-font-size:18px;
-letter-spacing:3px;
-}
-
-.bar{
-width:320px;
-height:10px;
-border:1px solid #00ffe1;
-margin-top:20px;
-}
-.fill{
-height:100%;
-width:0%;
-background:#00ffe1;
-}
-
-/* MAIN */
-#main{
-display:none;
-padding-top:70px;
-z-index:5;
-}
-
-.glow{
-text-shadow:0 0 12px #00ffe1;
-}
-
-.glitch{
-animation:glitch 0.8s infinite;
-}
-
-@keyframes glitch{
-0%{transform:translate(0)}
-20%{transform:translate(-1px,1px)}
-40%{transform:translate(1px,-1px)}
-60%{transform:translate(-2px,1px)}
-80%{transform:translate(1px,2px)}
-100%{transform:translate(0)}
-}
-
-/* ALERT FLASH */
-.flash{
-position:fixed;
-width:100%;
-height:100%;
-background:red;
-opacity:0;
-z-index:9;
-animation:flash 0.2s infinite;
-}
-
-@keyframes flash{
-0%{opacity:0}
-50%{opacity:0.08}
-100%{opacity:0}
-}
-
-/* TYPING */
-#type{
-margin-top:20px;
-font-size:14px;
-color:#00ffe1;
-white-space:pre;
+button.music {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid #00ffe5;
+    color: #00ffe5;
+    cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MATRIX BACKGROUND -->
 <canvas id="matrix"></canvas>
-<div class="flash"></div>
-
-<!-- INTRO -->
-<div id="intro" class="screen">
-    <div class="glitch">NETFLIX · CIA · DARK SYSTEM</div>
-    <div>INITIALIZING RAMY CORE...</div>
-</div>
 
 <!-- LOGIN -->
-<div id="login" class="screen">
+<div id="login">
+    <h2 class="glow">ENTER ACCESS CODE</h2>
+    <input type="password" id="pass" placeholder="PASSWORD">
+    <button onclick="checkPass()">UNLOCK</button>
+</div>
+
+<!-- PROFILE -->
+<div id="profile">
+    <h1 class="glow">RAMY</h1>
+
     <div class="box">
-        <h2 class="glow">CLASSIFIED ACCESS</h2>
-        <p>AGENT: RAMY</p>
-        <input id="pass" type="password" placeholder="ENTER CODE">
-        <button onclick="start()">UNLOCK SYSTEM</button>
+        <p>Age: 35</p>
+        <p>Status: 🟢 ONLINE</p>
+        <p>System: CYBERPUNK VIP PROFILE</p>
+    </div>
+
+    <br>
+
+    <button class="music" onclick="playMusic()">▶ PLAY MUSIC</button>
+
+    <div style="margin-top:20px;">
+        <iframe id="song" width="0" height="0"
+        src="https://www.youtube.com/embed/4ulSR860HyU?enablejsapi=1"
+        allow="autoplay"></iframe>
     </div>
 </div>
 
-<!-- SCAN -->
-<div id="scan" class="screen">
-    <div class="glow">SCANNING / DECRYPTING PROFILE...</div>
-    <div class="bar"><div class="fill" id="fill"></div></div>
-</div>
-
-<!-- MAIN -->
-<div id="main" class="screen">
-    <h1 class="glitch glow">WELCOME RAMY</h1>
-
-    <div id="type"></div>
-</div>
-
-<!-- SOUNDS -->
-<audio id="ok">
-<source src="https://www.soundjay.com/buttons/sounds/button-29.mp3">
-</audio>
-
-<audio id="success">
-<source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
-</audio>
-
 <script>
+// PASSWORD
+function checkPass(){
+    let p = document.getElementById("pass").value;
+    if(p === "111991"){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("profile").style.display = "block";
+    } else {
+        alert("ACCESS DENIED");
+    }
+}
+
+// MUSIC
+function playMusic(){
+    let iframe = document.getElementById("song");
+    iframe.src += "&autoplay=1";
+}
 
 /* MATRIX */
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-let chars="RAMYVIPNETFLIXCIAHACKSYSTEM0101$$##";
-chars=chars.split("");
+let letters = "01RAMYCYBERPUNK010101";
+letters = letters.split("");
 
-let font=14;
-let cols=canvas.width/font;
-let drops=Array(Math.floor(cols)).fill(1);
+let fontSize = 14;
+let columns = canvas.width / fontSize;
 
-function matrix(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+let drops = [];
 
-ctx.fillStyle="#00ffe1";
-ctx.font=font+"px monospace";
+for(let x = 0; x < columns; x++)
+    drops[x] = 1;
 
-for(let i=0;i<drops.length;i++){
-let t=chars[Math.floor(Math.random()*chars.length)];
-ctx.fillText(t,i*font,drops[i]*font);
+function draw(){
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-if(drops[i]*font>canvas.height && Math.random()>0.975){
-drops[i]=0;
-}
-drops[i]++;
-}
-}
-setInterval(matrix,33);
+    ctx.fillStyle = "#00ffe5";
+    ctx.font = fontSize + "px monospace";
 
-/* INTRO FLOW */
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-document.getElementById("login").style.display="flex";
-},5000);
+    for(let i = 0; i < drops.length; i++){
+        let text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
 
-/* TYPE EFFECT */
-let lines=[
-"SYSTEM: ONLINE",
-"DECRYPTING USER DATA...",
-"ACCESS LEVEL: VIP CLASSIFIED",
-"LOCATION: UNKNOWN",
-"STATUS: RAMY ACTIVE",
-"SECURITY: OVERRIDE SUCCESS"
-];
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
 
-let i=0,j=0;
-function type(){
-if(i<lines.length){
-if(j<lines[i].length){
-document.getElementById("type").innerHTML+=lines[i][j];
-j++;
-setTimeout(type,30);
-}else{
-document.getElementById("type").innerHTML+="\n";
-i++; j=0;
-setTimeout(type,300);
-}
-}
+        drops[i]++;
+    }
 }
 
-/* START */
-function start(){
-
-if(document.getElementById("pass").value!=="111991"){
-alert("ACCESS DENIED");
-return;
-}
-
-document.getElementById("ok").play().catch(()=>{});
-
-document.getElementById("login").style.display="none";
-document.getElementById("scan").style.display="flex";
-
-let fill=document.getElementById("fill");
-let p=0;
-
-let t=setInterval(()=>{
-p++;
-fill.style.width=p+"%";
-
-if(p>=100){
-clearInterval(t);
-
-document.getElementById("scan").style.display="none";
-document.getElementById("main").style.display="flex";
-
-document.getElementById("success").play().catch(()=>{});
-
-type();
-}
-},20);
-}
+setInterval(draw, 33);
 </script>
 
 </body>
