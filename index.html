@@ -1,109 +1,169 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>VIP PROFILE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henkish · Space</title>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #101010;
+    background-image: linear-gradient(rgba(16, 16, 16, 0.8), rgba(16, 16, 16, 0.8)), url('https://xatimg.com/image/AeKGBMT8u33T.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* شاشة القفل */
+#lockScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+#lockScreen input {
+    padding: 12px;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+#lockScreen button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+h1, p {
+    text-align: center;
+    line-height: 1.8;
+    font-family: Lora, serif;
+    margin: 10px 0;
+}
+
+.glowIn {
+    color: white;
+    white-space: pre-wrap;
+}
+
+.glowIn span {
+    display: inline-block;
+    opacity: 0;
+    animation: glow-in 0.8s both;
+}
+
+@keyframes glow-in {
+    from { opacity: 0; }
+    65% { opacity: 1; text-shadow: 0 0 25px white; }
+    75% { opacity: 1; }
+    to { opacity: 0.7; }
+}
+
+.videos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.videos iframe {
+    width: 200px;
+    height: 135px;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.videos iframe:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+</style>
 </head>
 
-<body style="margin:0; font-family:Arial;">
+<body>
 
-<!-- شاشة الباسورد -->
-<div id="login" style="
-position:fixed;
-width:100%;
-height:100%;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-color:white;
-">
-
-  <h2 style="color:#00ffd5;">🔐 ENTER PASSWORD</h2>
-
-  <input id="pass" type="password" placeholder="Password"
-    style="padding:10px; font-size:18px; text-align:center;">
-
-  <br>
-
-  <button onclick="checkPass()" style="
-    padding:10px 20px;
-    background:#00ffd5;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-  ">
-    ENTER
-  </button>
-
-  <p id="error" style="color:red;"></p>
+<!-- 🔐 شاشة القفل -->
+<div id="lockScreen">
+    <h2>🔐 Enter Password</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPass()">Enter</button>
+    <p id="error" style="color:red;"></p>
 </div>
 
-<!-- المحتوى الحقيقي -->
+<!-- 💎 المحتوى -->
 <div id="content" style="display:none;">
 
-<div style="
-background-image:url('https://images2.alphacoders.com/606/606020.jpg');
-background-size:cover;
-background-position:center;
-padding:60px;
-text-align:center;
-color:white;
-">
+<h1 class="glowIn">Hello,ժօLLվ ,</h1>
+<p class="glowIn">I'm xats trader and I love trading very much and selling and buying ID's</p>
+<p class="glowIn">iEgypt (106080) ❤️ DodoLove14 (1541187216)</p>
+<p class="glowIn">нєηкιѕн ❤️ ժօLLվ</p>
 
-<div style="
-background:rgba(0,0,0,0.85);
-padding:40px;
-border-radius:25px;
-box-shadow:0 0 40px #00ffd5;
-max-width:600px;
-margin:auto;
-">
-
-  <h1 style="
-    font-size:65px;
-    color:#00ffd5;
-    text-shadow:0 0 25px #00ffd5;
-  ">
-    RAMY
-  </h1>
-
-  <p>⚔️ Assassin VIP Profile ⚔️</p>
-
-  <hr style="border:1px solid #00ffd5;">
-
-  <p style="line-height:1.8;">
-    👤 Name: Ramy<br>
-    🎂 Age: 35 Years Old<br>
-    🟢 Status: <span style="color:#00ff66;">Online</span><br>
-    🌍 Country: Egypt 🇪🇬
-  </p>
-
-  <hr style="border:1px solid #00ffd5;">
-
-  <p style="color:#aaa;">
-    "Nothing is true, everything is permitted"
-  </p>
-
-  <audio controls autoplay loop style="width:100%; margin-top:20px;">
-    <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_2b9c7d1b1b.mp3" type="audio/mpeg">
-  </audio>
-
-</div>
+<div class="videos">
+    <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
+    <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
+    <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
 </div>
 
 </div>
 
 <script>
-function checkPass(){
-  var p = document.getElementById("pass").value;
-  if(p === "1020304050"){
-    document.getElementById("login").style.display = "none";
-    document.getElementById("content").style.display = "block";
-  } else {
-    document.getElementById("error").innerHTML = "❌ Wrong Password";
-  }
+"use strict";
+
+// 🔐 كلمة السر
+function checkPass() {
+    let pass = document.getElementById("password").value;
+
+    if(pass === "111991") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("content").style.display = "block";
+
+        // تشغيل الانيميشن بعد الفتح
+        startGlow();
+    } else {
+        document.getElementById("error").innerText = "❌ Wrong Password";
+    }
+}
+
+// ✨ تشغيل تأثير النص بعد الفتح
+function startGlow() {
+    let glowInTexts = document.querySelectorAll(".glowIn");
+
+    glowInTexts.forEach(glowInText => {
+        let letters = glowInText.textContent.split("");
+        glowInText.textContent = "";
+
+        letters.forEach((letter, i) => {
+            let span = document.createElement("span");
+            span.textContent = letter;
+            span.style.animationDelay = `${i * 0.05}s`;
+            glowInText.append(span);
+        });
+    });
 }
 </script>
 
