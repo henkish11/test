@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RAMY | CYBERPUNK PROFILE</title>
+<title>RAMY | CYBERPUNK LEVEL 2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,23 +13,23 @@ body {
     font-family: 'Orbitron', sans-serif;
     overflow: hidden;
     color: #00ffe5;
+    background: black;
 }
 
-/* MATRIX BACKGROUND */
+/* MATRIX */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
-    background: black;
+    z-index: -2;
 }
 
-/* LOGIN SCREEN */
+/* LOGIN */
 #login {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.95);
+    background: radial-gradient(circle, rgba(0,255,229,0.08), black 70%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,8 +43,9 @@ canvas {
     background: transparent;
     color: #00ffe5;
     text-align: center;
-    margin: 10px;
     font-size: 18px;
+    margin: 10px;
+    outline: none;
 }
 
 #login button {
@@ -59,24 +60,35 @@ canvas {
 #profile {
     display: none;
     text-align: center;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .glow {
-    text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
+    text-shadow: 0 0 10px #00ffe5, 0 0 25px #00ffe5;
 }
 
 .box {
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 20px;
+    width: 320px;
     border: 1px solid rgba(0,255,229,0.4);
-    display: inline-block;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px;
 }
 
-button.music {
-    margin-top: 20px;
-    padding: 10px 20px;
+/* MUSIC BOX */
+.song {
+    margin: 15px auto;
+    padding: 15px;
+    width: 320px;
+    border: 1px solid rgba(0,255,229,0.3);
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    margin-top: 8px;
     background: transparent;
     border: 1px solid #00ffe5;
     color: #00ffe5;
@@ -87,7 +99,6 @@ button.music {
 
 <body>
 
-<!-- MATRIX BACKGROUND -->
 <canvas id="matrix"></canvas>
 
 <!-- LOGIN -->
@@ -99,27 +110,42 @@ button.music {
 
 <!-- PROFILE -->
 <div id="profile">
+
     <h1 class="glow">RAMY</h1>
 
     <div class="box">
-        <p>Age: 35</p>
-        <p>Status: 🟢 ONLINE</p>
-        <p>System: CYBERPUNK VIP PROFILE</p>
+        <p>👤 Name: Ramy</p>
+        <p>🎂 Age: 35</p>
+        <p>🟢 Status: ONLINE</p>
+        <p>💠 Mode: CYBERPUNK VIP LEVEL 2</p>
     </div>
 
-    <br>
-
-    <button class="music" onclick="playMusic()">▶ PLAY MUSIC</button>
-
-    <div style="margin-top:20px;">
-        <iframe id="song" width="0" height="0"
-        src="https://www.youtube.com/embed/4ulSR860HyU?enablejsapi=1"
-        allow="autoplay"></iframe>
+    <!-- SONG 1 -->
+    <div class="song">
+        <p>🎵 الحب الأبدي</p>
+        <audio id="s1" src="love_eternal.mp3"></audio>
+        <button onclick="toggle('s1')">PLAY / PAUSE</button>
     </div>
+
+    <!-- SONG 2 -->
+    <div class="song">
+        <p>🎵 أصالة - شايفه فيك</p>
+        <audio id="s2" src="assala_shayfa_fek.mp3"></audio>
+        <button onclick="toggle('s2')">PLAY / PAUSE</button>
+    </div>
+
+    <!-- SONG 3 -->
+    <div class="song">
+        <p>🎵 Cyber Love Mix</p>
+        <audio id="s3" src="cyber_love.mp3"></audio>
+        <button onclick="toggle('s3')">PLAY / PAUSE</button>
+    </div>
+
 </div>
 
 <script>
-// PASSWORD
+
+/* PASSWORD */
 function checkPass(){
     let p = document.getElementById("pass").value;
     if(p === "111991"){
@@ -130,10 +156,15 @@ function checkPass(){
     }
 }
 
-// MUSIC
-function playMusic(){
-    let iframe = document.getElementById("song");
-    iframe.src += "&autoplay=1";
+/* AUDIO CONTROL */
+function toggle(id){
+    let audio = document.getElementById(id);
+
+    if(audio.paused){
+        audio.play();
+    } else {
+        audio.pause();
+    }
 }
 
 /* MATRIX */
@@ -143,36 +174,33 @@ const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
-let letters = "01RAMYCYBERPUNK010101";
+let letters = "RAMYCYBERLOVE010101010";
 letters = letters.split("");
 
 let fontSize = 14;
 let columns = canvas.width / fontSize;
 
-let drops = [];
-
-for(let x = 0; x < columns; x++)
-    drops[x] = 1;
+let drops = Array(Math.floor(columns)).fill(1);
 
 function draw(){
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
     ctx.fillStyle = "#00ffe5";
     ctx.font = fontSize + "px monospace";
 
-    for(let i = 0; i < drops.length; i++){
+    for(let i=0;i<drops.length;i++){
         let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
-
+        if(drops[i]*fontSize > canvas.height && Math.random()>0.975){
+            drops[i]=0;
+        }
         drops[i]++;
     }
 }
 
-setInterval(draw, 33);
+setInterval(draw,33);
 </script>
 
 </body>
