@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>REALITY WORLD - RAMY</title>
+<meta charset="UTF-8">
+<title>REALITY WORLD - ROOMS</title>
 
 <style>
 body{
@@ -11,57 +12,116 @@ color:#00ffe5;
 font-family:Arial;
 }
 
+#topbar{
+padding:10px;
+border-bottom:1px solid cyan;
+display:flex;
+gap:10px;
+}
+
+button{
+background:black;
+color:cyan;
+border:1px solid cyan;
+padding:10px;
+cursor:pointer;
+}
+
 #chat{
 height:300px;
 overflow:auto;
 border:1px solid cyan;
+margin:10px;
 padding:10px;
-margin:20px;
 }
 
 input{
-width:80%;
+width:75%;
 padding:10px;
 background:black;
 color:cyan;
 border:1px solid cyan;
-}
-
-button{
-padding:10px;
-background:cyan;
-border:none;
-cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🌐 REALITY WORLD - RAMY</h2>
+<div id="topbar">
+<button onclick="switchRoom('main')">🟢 MAIN CORE</button>
+<button onclick="switchRoom('lab')">🔵 CYBER LAB</button>
+<button onclick="switchRoom('dark')">🔴 DARK CHAT</button>
+</div>
+
+<h3 id="roomTitle">ROOM: MAIN CORE</h3>
 
 <div id="chat"></div>
 
-<input id="msg" placeholder="type message...">
+<input id="msg">
 <button onclick="send()">SEND</button>
 
 <script>
-async function send(){
-let msg=document.getElementById("msg").value;
 
-let res=await fetch("http://localhost:3000/chat",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({message:msg})
-});
+let currentRoom = "main";
 
-let data=await res.json();
+// تخزين لكل غرفة
+let rooms = {
+main: [],
+lab: [],
+dark: []
+};
 
-document.getElementById("chat").innerHTML +=
-"You: "+msg+"<br>AI: "+data.reply+"<br><br>";
+// تغيير الغرفة
+function switchRoom(room){
+currentRoom = room;
 
-document.getElementById("msg").value="";
+document.getElementById("roomTitle").innerText =
+"ROOM: " + room.toUpperCase();
+
+render();
 }
+
+// عرض الرسائل
+function render(){
+let chat = document.getElementById("chat");
+chat.innerHTML = "";
+
+rooms[currentRoom].forEach(m=>{
+chat.innerHTML += m + "<br>";
+});
+}
+
+// AI بسيط لكل غرفة
+function aiResponse(msg){
+msg = msg.toLowerCase();
+
+if(msg.includes("ramy"))
+return "👑 RAMY is present in this reality";
+
+if(currentRoom === "dark")
+return "☠ DARK AI ACTIVE NODE RESPONSE";
+
+if(currentRoom === "lab")
+return "🧪 LAB RESULT GENERATED";
+
+return "AI: message processed";
+}
+
+// إرسال رسالة
+function send(){
+let msg = document.getElementById("msg").value;
+
+rooms[currentRoom].push("YOU: " + msg);
+
+let reply = aiResponse(msg);
+
+rooms[currentRoom].push(reply);
+
+document.getElementById("msg").value = "";
+
+render();
+}
+
 </script>
 
 </body>
