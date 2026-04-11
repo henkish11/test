@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ramy Profile - Cyberpunk</title>
+<title>RAMY - ABSOLUTE REALITY OS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,185 +11,255 @@
 body {
     margin: 0;
     font-family: Orbitron, sans-serif;
-    overflow: hidden;
     background: black;
-    color: white;
+    color: #00fff2;
+    overflow: hidden;
 }
 
-/* MATRIX CANVAS */
+/* STARFIELD */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: -3;
+}
+
+/* MATRIX */
+.matrix {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,255,255,0.04),
+        rgba(0,0,0,0.05) 2px
+    );
     z-index: -2;
 }
 
-/* DARK OVERLAY */
-.overlay {
+/* BOOT SCREEN */
+#boot {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(0,255,255,0.08), black 70%);
-    z-index: -1;
-}
-
-/* PASSWORD SCREEN */
-#lockScreen {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover;
+    background: black;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 10;
+    z-index: 100;
+    animation: fade 4s forwards;
 }
 
-.lockBox {
-    background: rgba(0,0,0,0.7);
-    padding: 30px;
+@keyframes fade {
+    0%{opacity:1;}
+    80%{opacity:1;}
+    100%{opacity:0;visibility:hidden;}
+}
+
+.bootText {
+    font-size: 30px;
+    text-shadow: 0 0 20px cyan;
+}
+
+/* LOCK */
+#lock {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #001a1a, black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+}
+
+.box {
+    padding: 25px;
     border: 1px solid cyan;
-    box-shadow: 0 0 25px cyan;
+    box-shadow: 0 0 50px cyan;
+    background: rgba(0,0,0,0.8);
     text-align: center;
 }
 
 input {
     padding: 10px;
-    width: 200px;
     background: black;
     border: 1px solid cyan;
     color: cyan;
-    text-align: center;
 }
 
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: cyan;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* MAIN CONTENT */
-#content {
+/* DESKTOP */
+#desktop {
     display: none;
-    text-align: center;
-    padding-top: 80px;
+    padding: 20px;
 }
 
-h1 {
+/* ICONS */
+.icon {
+    width: 120px;
+    height: 120px;
+    border: 1px solid cyan;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 20px cyan;
+}
+
+/* WINDOW */
+.window {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background: rgba(0,0,0,0.9);
+    border: 1px solid cyan;
+    box-shadow: 0 0 30px cyan;
+    display: none;
+    padding: 10px;
+}
+
+.title {
+    text-align: center;
     font-size: 40px;
     text-shadow: 0 0 20px cyan;
-}
-
-.info {
-    margin-top: 10px;
-    line-height: 1.8;
-    opacity: 0.9;
-}
-
-/* MUSIC PANEL */
-.music {
-    margin-top: 30px;
-}
-
-audio {
-    width: 300px;
-    margin: 10px;
-    filter: drop-shadow(0 0 10px cyan);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="matrix"></canvas>
-<div class="overlay"></div>
+<canvas id="stars"></canvas>
+<div class="matrix"></div>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-    <div class="lockBox">
-        <h2>ENTER ACCESS CODE</h2>
-        <input type="password" id="pass" placeholder="••••••••">
-        <br>
-        <button onclick="checkPass()">UNLOCK</button>
+<!-- BOOT -->
+<div id="boot">
+    <div class="bootText">BOOTING REALITY OS...</div>
+</div>
+
+<!-- LOCK -->
+<div id="lock">
+    <div class="box">
+        <h2>ENTER CORE ACCESS</h2>
+        <input type="password" id="pass">
+        <br><br>
+        <button onclick="unlock()">ENTER</button>
     </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="content">
-    <h1>RAMY</h1>
+<!-- DESKTOP -->
+<div id="desktop">
 
-    <div class="info">
-        Age: 35<br>
-        Status: ONLINE 🟢<br>
-        Mode: CYBERPUNK FINAL EVOLUTION 😈<br>
-        Identity: SYSTEM USER / DARK PROFILE NODE
+    <div class="title">RAMY OS</div>
+
+    <div class="icon" onclick="openWin('ai')">AI</div>
+    <div class="icon" onclick="openWin('status')">STATUS</div>
+
+    <div class="window" id="ai">
+        <h3>AI CORE</h3>
+        <div id="chat" style="height:120px;overflow:auto;"></div>
+        <input id="msg" placeholder="ask AI..." style="width:100%">
     </div>
 
-    <div class="music">
-        <h3>Music Core</h3>
-
-        <!-- MP3 EXAMPLES (replace links with your files) -->
-        <audio controls autoplay loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
-
-        <audio controls loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-        </audio>
+    <div class="window" id="status">
+        <h3>SYSTEM STATUS</h3>
+        RAMY: ONLINE 🟢<br>
+        MODE: BEYOND FINAL 👁️<br>
+        REALITY: STABLE<br>
     </div>
+
 </div>
 
 <script>
-// PASSWORD
-function checkPass(){
-    let p = document.getElementById("pass").value;
-    if(p === "111991"){
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("content").style.display = "block";
+
+// UNLOCK
+function unlock(){
+    if(document.getElementById("pass").value === "111991"){
+        document.getElementById("lock").style.display = "none";
+        setTimeout(()=>{
+            document.getElementById("desktop").style.display = "block";
+        },2000);
+        voice();
     } else {
-        alert("ACCESS DENIED ❌");
+        alert("DENIED ❌");
     }
 }
 
-// MATRIX EFFECT
-const canvas = document.getElementById("matrix");
+// VOICE
+function voice(){
+    let msg = new SpeechSynthesisUtterance("Welcome Ramy. Beyond final reality OS activated.");
+    speechSynthesis.speak(msg);
+}
+
+// WINDOWS
+function openWin(id){
+    let w = document.getElementById(id);
+    w.style.display = "block";
+    w.style.top = Math.random()*300 + "px";
+    w.style.left = Math.random()*300 + "px";
+}
+
+// AI CHAT (simple offline brain)
+document.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+        let input = document.getElementById("msg");
+        if(!input) return;
+
+        let text = input.value.toLowerCase();
+        let chat = document.getElementById("chat");
+
+        let response = "";
+
+        if(text.includes("ramy")){
+            response = "RAMY = CORE ENTITY 👑";
+        }
+        else if(text.includes("who")){
+            response = "I am REALITY OS AI";
+        }
+        else if(text.includes("status")){
+            response = "ALL SYSTEMS STABLE ✔";
+        }
+        else {
+            response = "UNKNOWN QUERY...";
+        }
+
+        chat.innerHTML += "YOU: " + text + "<br>AI: " + response + "<br><br>";
+        input.value = "";
+    }
+});
+
+// STARS
+const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
-canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-let letters = "01RAMYCYBERPUNKHACKER$#@%&";
-letters = letters.split("");
-
-let fontSize = 14;
-let columns = canvas.width / fontSize;
-
-let drops = [];
-for(let x = 0; x < columns; x++)
-    drops[x] = 1;
+let stars = Array(120).fill().map(()=>({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*2
+}));
 
 function draw(){
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
     ctx.fillStyle = "#0ff";
-    ctx.font = fontSize + "px monospace";
 
-    for(let i = 0; i < drops.length; i++){
-        let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+    stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+        s.y += 0.3;
+        if(s.y > canvas.height) s.y = 0;
+    });
 
-        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
-
-        drops[i]++;
-    }
+    requestAnimationFrame(draw);
 }
-setInterval(draw, 33);
+draw();
+
 </script>
 
 </body>
