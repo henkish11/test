@@ -2,187 +2,206 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RAMY | CYBERPUNK PROFILE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramy · Cyber Profile</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700');
 
 body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    overflow: hidden;
-    color: #00ffe5;
-    background: black;
+    margin:0;
+    font-family:Lora, serif;
+    color:white;
+    overflow:hidden;
 }
 
-/* MATRIX */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -2;
+/* ===== BACKGROUND ANIMATION ===== */
+.background {
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover;
+    filter:brightness(0.3) contrast(1.2);
+    animation: zoom 20s infinite alternate;
 }
 
-/* LOGIN */
-#login {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0,255,229,0.08), black 70%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 10;
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
 }
 
-#login input {
-    padding: 12px;
-    border: 1px solid #00ffe5;
-    background: transparent;
-    color: #00ffe5;
-    text-align: center;
-    font-size: 18px;
-    margin: 10px;
-    outline: none;
+/* MATRIX OVERLAY */
+.matrix {
+    position:fixed;
+    width:100%;
+    height:100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,255,120,0.05),
+        rgba(0,255,120,0.05) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    animation: move 8s linear infinite;
 }
 
-#login button {
-    padding: 10px 25px;
-    background: #00ffe5;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+@keyframes move {
+    from { background-position:0 0; }
+    to { background-position:0 100px; }
+}
+
+/* PASSWORD SCREEN */
+#lock {
+    position:fixed;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+}
+
+.lock-box {
+    text-align:center;
+    padding:30px;
+    border:1px solid #0ff;
+    box-shadow:0 0 20px #0ff;
+    border-radius:10px;
+}
+
+input {
+    padding:10px;
+    border:none;
+    outline:none;
+    margin-top:10px;
+    width:200px;
+    text-align:center;
+    font-size:18px;
+}
+
+button {
+    margin-top:10px;
+    padding:10px 20px;
+    background:#0ff;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 /* PROFILE */
-#profile {
-    display: none;
-    text-align: center;
-    padding-top: 40px;
+#content {
+    display:none;
+    text-align:center;
+    position:relative;
+    padding-top:60px;
 }
 
 .glow {
-    text-shadow: 0 0 10px #00ffe5, 0 0 25px #00ffe5;
+    text-shadow:0 0 10px #0ff,0 0 20px #0ff;
 }
 
-.box {
-    margin: 20px auto;
-    padding: 20px;
-    width: 340px;
-    border: 1px solid rgba(0,255,229,0.4);
-    background: rgba(0,0,0,0.6);
-    border-radius: 10px;
+.info {
+    margin:10px;
+    letter-spacing:2px;
+    line-height:2;
 }
 
-/* VIDEOS STYLE (MUSIC) */
+/* VIDEO SECTION */
 .videos {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 25px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
 }
 
-.videos iframe {
-    width: 220px;
-    height: 140px;
-    border: none;
-    border-radius: 10px;
-    transition: 0.3s;
+iframe {
+    width:220px;
+    height:140px;
+    border-radius:10px;
+    border:1px solid #0ff;
 }
 
-.videos iframe:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #00ffe5;
+/* MUSIC BUTTON */
+#musicBtn {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    padding:12px 20px;
+    background:#0ff;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="matrix"></canvas>
+<div class="background"></div>
+<div class="matrix"></div>
 
-<!-- LOGIN -->
-<div id="login">
-    <h2 class="glow">ENTER ACCESS CODE</h2>
-    <input type="password" id="pass" placeholder="PASSWORD">
-    <button onclick="checkPass()">UNLOCK</button>
+<!-- PASSWORD -->
+<div id="lock">
+    <div class="lock-box">
+        <h2>ENTER ACCESS CODE</h2>
+        <input type="password" id="pass" placeholder="••••••••">
+        <br>
+        <button onclick="check()">UNLOCK</button>
+    </div>
 </div>
 
-<!-- PROFILE -->
-<div id="profile">
+<!-- CONTENT -->
+<div id="content">
 
-    <h1 class="glow">RAMY</h1>
+    <h1 class="glow">RAMY PROFILE</h1>
 
-    <div class="box">
-        <p>👤 Name: Ramy</p>
-        <p>🎂 Age: 35</p>
-        <p>🟢 Status: ONLINE</p>
-        <p>💠 Mode: CYBERPUNK VIP</p>
+    <div class="info">
+        Name: RAMY<br>
+        Age: 35<br>
+        Status: ONLINE 🟢<br>
+        System: CYBER EDITION VIP
     </div>
 
-    <!-- MUSIC (ORIGINAL STYLE LIKE FIRST TIME) -->
+    <!-- VIDEOS (OLD STYLE RESTORED) -->
     <div class="videos">
-
-        <iframe src="https://www.youtube.com/embed/4ulSR860HyU" allow="autoplay"></iframe>
-
-        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk" allow="autoplay"></iframe>
-
-        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0" allow="autoplay"></iframe>
-
+        <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
+        <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
+        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
     </div>
 
 </div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+    <source src="https://files.catbox.moe/7p7k9y.mp3" type="audio/mp3">
+</audio>
+
+<button id="musicBtn" onclick="toggleMusic()">▶ PLAY MUSIC</button>
 
 <script>
-
-/* PASSWORD */
-function checkPass(){
+function check(){
     let p = document.getElementById("pass").value;
     if(p === "111991"){
-        document.getElementById("login").style.display = "none";
-        document.getElementById("profile").style.display = "block";
+        document.getElementById("lock").style.display="none";
+        document.getElementById("content").style.display="block";
     } else {
-        alert("ACCESS DENIED");
+        alert("WRONG PASSWORD");
     }
 }
 
-/* MATRIX */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+let music = document.getElementById("music");
+let btn = document.getElementById("musicBtn");
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-
-let letters = "RAMYCYBERLOVE010101";
-letters = letters.split("");
-
-let fontSize = 14;
-let columns = canvas.width / fontSize;
-
-let drops = Array(Math.floor(columns)).fill(1);
-
-function draw(){
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = "#00ffe5";
-    ctx.font = fontSize + "px monospace";
-
-    for(let i=0;i<drops.length;i++){
-        let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-        if(drops[i]*fontSize > canvas.height && Math.random()>0.975){
-            drops[i]=0;
-        }
-        drops[i]++;
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.innerText="⏸ PAUSE MUSIC";
+    } else {
+        music.pause();
+        btn.innerText="▶ PLAY MUSIC";
     }
 }
-
-setInterval(draw,33);
 </script>
 
 </body>
