@@ -2,41 +2,76 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>REALITY WORLD - ROOMS</title>
+<title>REALITY WORLD - RAMY</title>
 
 <style>
 body{
 margin:0;
+font-family:Arial;
 background:black;
 color:#00ffe5;
-font-family:Arial;
+overflow:hidden;
 }
 
-#topbar{
-padding:10px;
-border-bottom:1px solid cyan;
+/* LOGIN */
+#login{
+position:fixed;
+width:100%;
+height:100%;
 display:flex;
-gap:10px;
+justify-content:center;
+align-items:center;
+background:black;
 }
 
+.box{
+border:1px solid cyan;
+padding:30px;
+box-shadow:0 0 30px cyan;
+text-align:center;
+}
+
+input{
+padding:10px;
+background:black;
+border:1px solid cyan;
+color:cyan;
+}
+
+/* MAIN */
+#main{
+display:none;
+padding:10px;
+}
+
+/* HEADER */
+#header{
+border-bottom:1px solid cyan;
+padding:10px;
+}
+
+/* ROOMS */
 button{
 background:black;
 color:cyan;
 border:1px solid cyan;
 padding:10px;
 cursor:pointer;
+margin:3px;
 }
 
+/* CHAT */
 #chat{
-height:300px;
+height:250px;
 overflow:auto;
 border:1px solid cyan;
-margin:10px;
 padding:10px;
+margin-top:10px;
 }
 
-input{
-width:75%;
+/* INPUT */
+#msg{
+width:70%;
 padding:10px;
 background:black;
 color:cyan;
@@ -47,78 +82,108 @@ border:1px solid cyan;
 
 <body>
 
-<div id="topbar">
-<button onclick="switchRoom('main')">🟢 MAIN CORE</button>
-<button onclick="switchRoom('lab')">🔵 CYBER LAB</button>
-<button onclick="switchRoom('dark')">🔴 DARK CHAT</button>
+<!-- LOGIN -->
+<div id="login">
+<div class="box">
+<h2>🔐 ENTER ACCESS CODE</h2>
+<input type="password" id="pass">
+<br><br>
+<button onclick="unlock()">ENTER</button>
+</div>
 </div>
 
-<h3 id="roomTitle">ROOM: MAIN CORE</h3>
+<!-- MAIN -->
+<div id="main">
+
+<div id="header">
+<h2>👑 RAMY REALITY WORLD</h2>
+<div>
+NAME: RAMY<br>
+AGE: 35<br>
+STATUS: ONLINE 🟢<br>
+MODE: ACTIVE USER
+</div>
+</div>
+
+<!-- ROOMS -->
+<div>
+<button onclick="switchRoom('main')">🟢 MAIN</button>
+<button onclick="switchRoom('lab')">🔵 LAB</button>
+<button onclick="switchRoom('dark')">🔴 DARK</button>
+</div>
+
+<h3 id="roomTitle">ROOM: MAIN</h3>
 
 <div id="chat"></div>
 
 <input id="msg">
 <button onclick="send()">SEND</button>
 
+</div>
+
 <script>
 
-let currentRoom = "main";
+let currentRoom="main";
 
-// تخزين لكل غرفة
-let rooms = {
-main: [],
-lab: [],
-dark: []
+let rooms={
+main:[],
+lab:[],
+dark:[]
 };
 
-// تغيير الغرفة
-function switchRoom(room){
-currentRoom = room;
+// فتح النظام
+function unlock(){
+let p=document.getElementById("pass").value;
 
-document.getElementById("roomTitle").innerText =
-"ROOM: " + room.toUpperCase();
+if(p==="111991"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+alert("❌ WRONG PASSWORD");
+}
+}
 
+// تغيير غرفة
+function switchRoom(r){
+currentRoom=r;
+document.getElementById("roomTitle").innerText="ROOM: "+r.toUpperCase();
 render();
 }
 
 // عرض الرسائل
 function render(){
-let chat = document.getElementById("chat");
-chat.innerHTML = "";
+let chat=document.getElementById("chat");
+chat.innerHTML="";
 
 rooms[currentRoom].forEach(m=>{
-chat.innerHTML += m + "<br>";
+chat.innerHTML+=m+"<br>";
 });
 }
 
-// AI بسيط لكل غرفة
-function aiResponse(msg){
-msg = msg.toLowerCase();
+// رد AI بسيط
+function ai(msg){
+msg=msg.toLowerCase();
 
 if(msg.includes("ramy"))
-return "👑 RAMY is present in this reality";
+return "👑 RAMY IS THE CORE USER";
 
-if(currentRoom === "dark")
-return "☠ DARK AI ACTIVE NODE RESPONSE";
+if(currentRoom==="dark")
+return "☠ DARK ROOM ACTIVE";
 
-if(currentRoom === "lab")
-return "🧪 LAB RESULT GENERATED";
+if(currentRoom==="lab")
+return "🧪 LAB PROCESS DONE";
 
-return "AI: message processed";
+return "AI RESPONSE GENERATED";
 }
 
-// إرسال رسالة
+// إرسال
 function send(){
-let msg = document.getElementById("msg").value;
+let msg=document.getElementById("msg").value;
 
-rooms[currentRoom].push("YOU: " + msg);
+rooms[currentRoom].push("YOU: "+msg);
+rooms[currentRoom].push("AI: "+ai(msg));
 
-let reply = aiResponse(msg);
-
-rooms[currentRoom].push(reply);
-
-document.getElementById("msg").value = "";
-
+document.getElementById("msg").value="";
 render();
 }
 
