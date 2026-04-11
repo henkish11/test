@@ -12,21 +12,30 @@ body {
     margin: 0;
     font-family: Lora, serif;
     overflow: hidden;
+    color: white;
 }
 
-/* ===== BACKGROUND ===== */
+/* ===== BACKGROUND IMAGE ===== */
 .bg {
     position: fixed;
     width: 100%;
     height: 100%;
     background: url('https://xatimg.com/image/AeKGBMT8u33T.jpg') center/cover no-repeat;
-    filter: brightness(0.4) contrast(1.2);
-    animation: zoom 20s infinite alternate;
+    filter: brightness(0.35) contrast(1.2);
+    animation: zoom 25s infinite alternate;
 }
 
 @keyframes zoom {
     from { transform: scale(1); }
-    to { transform: scale(1.2); }
+    to { transform: scale(1.25); }
+}
+
+/* ===== FLOATING PARTICLES ===== */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 /* ===== LOGIN ===== */
@@ -37,32 +46,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(15px);
     z-index: 999;
 }
 
 .login-box {
     background: rgba(0,0,0,0.7);
     border: 1px solid #00fff2;
-    box-shadow: 0 0 25px #00fff2;
+    box-shadow: 0 0 30px #00fff2;
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    width: 320px;
+    width: 340px;
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0); }
 }
 
 .login-box h2 {
     color: #00fff2;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 }
 
 .login-box input {
     width: 90%;
     padding: 12px;
     margin-top: 15px;
-    border: none;
     border-radius: 8px;
+    border: none;
     text-align: center;
     font-size: 16px;
 }
@@ -71,45 +90,58 @@ body {
     margin-top: 15px;
     width: 100%;
     padding: 10px;
-    border: none;
-    cursor: pointer;
     background: #00fff2;
+    border: none;
     font-weight: bold;
     border-radius: 8px;
-    transition: 0.3s;
+    cursor: pointer;
 }
 
 .login-box button:hover {
     background: #00c2b8;
 }
 
-/* ===== CONTENT ===== */
+/* ===== MAIN CONTENT ===== */
 #content {
     display: none;
     position: relative;
-    color: white;
+    z-index: 2;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 50px;
 }
 
+/* ===== TEXT ANIMATION ===== */
 .glowIn span {
     display: inline-block;
     opacity: 0;
-    animation: glow 0.8s forwards;
+    animation: glow 1s forwards;
 }
 
 @keyframes glow {
     from { opacity: 0; transform: translateY(10px); }
-    60% { opacity: 1; text-shadow: 0 0 20px #00fff2; }
+    60% { opacity: 1; text-shadow: 0 0 25px #00fff2; }
     to { opacity: 1; }
 }
 
+/* ===== PROFILE CARD ===== */
+.card {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #00fff2;
+    box-shadow: 0 0 25px #00fff2;
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* ===== VIDEOS ===== */
 .videos {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 15px;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 iframe {
@@ -118,12 +150,24 @@ iframe {
     border-radius: 10px;
     border: 1px solid #00fff2;
 }
+
+/* ===== MUSIC BUTTON ===== */
+.music-btn {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #00fff2;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+}
 </style>
 </head>
 
 <body>
 
 <div class="bg"></div>
+<canvas id="matrix"></canvas>
 
 <!-- LOGIN -->
 <div id="login">
@@ -138,6 +182,8 @@ iframe {
 <!-- CONTENT -->
 <div id="content">
 
+<div class="card">
+
     <h1 class="glowIn">Hello, ramy</h1>
 
     <p class="glowIn">I'm xats trader and I love trading very much and selling and buying ID's</p>
@@ -145,6 +191,10 @@ iframe {
     <p class="glowIn">iEgypt (106080) ❤️ DodoLove14 (1541187216)</p>
 
     <p class="glowIn">нєηкιѕн ❤️ ramy</p>
+
+    <p class="glowIn">Age: 35 | Status: Online | VIP Hacker Profile</p>
+
+    <button class="music-btn" onclick="toggleMusic()">Play / Pause Music</button>
 
     <div class="videos">
         <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
@@ -154,8 +204,16 @@ iframe {
 
 </div>
 
+</div>
+
+<!-- MUSIC -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/4ulSR860HyU?enablejsapi=1"
+allow="autoplay"></iframe>
+
 <script>
 const correctPass = "111991";
+let musicOn = false;
 
 function checkPass() {
     let input = document.getElementById("pass").value;
@@ -163,8 +221,9 @@ function checkPass() {
         document.getElementById("login").style.display = "none";
         document.getElementById("content").style.display = "block";
         animateText();
+        startMatrix();
     } else {
-        document.getElementById("msg").innerText = "Wrong Password!";
+        document.getElementById("msg").innerText = "Access Denied!";
     }
 }
 
@@ -175,10 +234,52 @@ function animateText(){
         letters.forEach((l,i)=>{
             let span = document.createElement("span");
             span.textContent = l;
-            span.style.animationDelay = (i*0.04)+"s";
+            span.style.animationDelay = (i*0.03)+"s";
             el.appendChild(span);
         });
     });
+}
+
+/* MUSIC */
+function toggleMusic(){
+    let frame = document.getElementById("music");
+    frame.src = musicOn ? frame.src : frame.src + "&autoplay=1";
+    musicOn = true;
+}
+
+/* MATRIX BACKGROUND */
+function startMatrix(){
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let letters = "01RAMYVIPHACKER".split("");
+    let fontSize = 14;
+    let columns = canvas.width / fontSize;
+    let drops = [];
+
+    for(let i=0;i<columns;i++) drops[i]=1;
+
+    function draw(){
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = "#00fff2";
+        ctx.font = fontSize+"px monospace";
+
+        for(let i=0;i<drops.length;i++){
+            let text = letters[Math.floor(Math.random()*letters.length)];
+            ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+            if(drops[i]*fontSize>canvas.height && Math.random()>0.975){
+                drops[i]=0;
+            }
+            drops[i]++;
+        }
+    }
+    setInterval(draw,33);
 }
 </script>
 
