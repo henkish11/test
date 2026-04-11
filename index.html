@@ -16,7 +16,6 @@ body {
     background: black;
 }
 
-/* MATRIX */
 canvas {
     position: fixed;
     top: 0;
@@ -76,7 +75,6 @@ canvas {
     border-radius: 10px;
 }
 
-/* MUSIC BOX */
 .song {
     margin: 15px auto;
     padding: 15px;
@@ -136,8 +134,8 @@ button {
 
     <!-- SONG 3 -->
     <div class="song">
-        <p>🎵 Cyber Love Mix</p>
-        <audio id="s3" src="cyber_love.mp3"></audio>
+        <p>🎵 قلبي محارب - أمين خطاب</p>
+        <audio id="s3" src="amin_khattab_qalbi_mohareb.mp3"></audio>
         <button onclick="toggle('s3')">PLAY / PAUSE</button>
     </div>
 
@@ -167,14 +165,14 @@ function toggle(id){
     }
 }
 
-/* MATRIX */
+/* MATRIX EFFECT */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
-let letters = "RAMYCYBERLOVE010101010";
+let letters = "RAMYLOVEHACKER010101";
 letters = letters.split("");
 
 let fontSize = 14;
