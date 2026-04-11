@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP Profile</title>
+<title>Ramy VIP Profile</title>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Lora:400,700");
@@ -14,7 +14,7 @@ body {
     overflow: hidden;
 }
 
-/* ===== Animated Background ===== */
+/* ===== BACKGROUND ===== */
 .bg {
     position: fixed;
     width: 100%;
@@ -29,7 +29,7 @@ body {
     to { transform: scale(1.2); }
 }
 
-/* ===== Login Overlay ===== */
+/* ===== LOGIN ===== */
 #login {
     position: fixed;
     width: 100%;
@@ -38,32 +38,30 @@ body {
     justify-content: center;
     align-items: center;
     background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     z-index: 999;
 }
 
 .login-box {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.7);
     border: 1px solid #00fff2;
     box-shadow: 0 0 25px #00fff2;
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    width: 300px;
+    width: 320px;
 }
 
 .login-box h2 {
     color: #00fff2;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 .login-box input {
     width: 90%;
-    padding: 10px;
+    padding: 12px;
+    margin-top: 15px;
     border: none;
-    outline: none;
-    margin-top: 10px;
     border-radius: 8px;
     text-align: center;
     font-size: 16px;
@@ -76,7 +74,6 @@ body {
     border: none;
     cursor: pointer;
     background: #00fff2;
-    color: black;
     font-weight: bold;
     border-radius: 8px;
     transition: 0.3s;
@@ -86,13 +83,13 @@ body {
     background: #00c2b8;
 }
 
-/* ===== Main Content ===== */
+/* ===== CONTENT ===== */
 #content {
     display: none;
     position: relative;
     color: white;
     text-align: center;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .glowIn span {
@@ -112,11 +109,12 @@ body {
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
+    flex-wrap: wrap;
 }
 
 iframe {
-    width: 200px;
-    height: 140px;
+    width: 220px;
+    height: 150px;
     border-radius: 10px;
     border: 1px solid #00fff2;
 }
@@ -127,26 +125,33 @@ iframe {
 
 <div class="bg"></div>
 
-<!-- ===== LOGIN ===== -->
+<!-- LOGIN -->
 <div id="login">
     <div class="login-box">
         <h2>VIP ACCESS</h2>
         <input type="password" id="pass" placeholder="Enter Password">
-        <button onclick="checkPass()">Unlock</button>
+        <button onclick="checkPass()">UNLOCK</button>
         <p id="msg" style="color:red;"></p>
     </div>
 </div>
 
-<!-- ===== CONTENT ===== -->
+<!-- CONTENT -->
 <div id="content">
 
-    <h1 class="glowIn">Welcome Ramy</h1>
-    <p class="glowIn">VIP Hacker Profile Activated</p>
+    <h1 class="glowIn">Hello, ramy</h1>
+
+    <p class="glowIn">I'm xats trader and I love trading very much and selling and buying ID's</p>
+
+    <p class="glowIn">iEgypt (106080) ❤️ DodoLove14 (1541187216)</p>
+
+    <p class="glowIn">нєηкιѕн ❤️ ramy</p>
 
     <div class="videos">
         <iframe src="https://www.youtube.com/embed/4ulSR860HyU"></iframe>
         <iframe src="https://www.youtube.com/embed/b-KFYv7cuxk"></iframe>
+        <iframe src="https://www.youtube.com/embed/OoyK4I3DyJ0"></iframe>
     </div>
+
 </div>
 
 <script>
@@ -170,7 +175,7 @@ function animateText(){
         letters.forEach((l,i)=>{
             let span = document.createElement("span");
             span.textContent = l;
-            span.style.animationDelay = (i*0.05)+"s";
+            span.style.animationDelay = (i*0.04)+"s";
             el.appendChild(span);
         });
     });
