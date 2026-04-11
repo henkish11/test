@@ -2,37 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FULL IMMERSIVE METAVERSE VR</title>
+<title>RAMY CYBER METAVERSE</title>
 
 <style>
 body{
 margin:0;
-overflow:hidden;
 background:black;
-font-family:Arial;
-}
-
-#hud{
-position:fixed;
-top:10px;
-left:10px;
 color:#00ffe5;
-z-index:10;
-font-size:14px;
-text-shadow:0 0 10px cyan;
-}
-
-#crosshair{
-position:fixed;
-top:50%;
-left:50%;
-width:10px;
-height:10px;
-background:#00ffe5;
-transform:translate(-50%,-50%);
-border-radius:50%;
-z-index:10;
-box-shadow:0 0 10px cyan;
+font-family:Arial;
+overflow:hidden;
 }
 
 /* LOGIN */
@@ -44,11 +22,10 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:black;
-z-index:100;
 }
 
 .box{
-padding:25px;
+padding:30px;
 border:1px solid cyan;
 box-shadow:0 0 40px cyan;
 text-align:center;
@@ -67,6 +44,67 @@ background:black;
 border:1px solid cyan;
 color:cyan;
 cursor:pointer;
+margin:5px;
+}
+
+/* MAIN */
+#main{
+display:none;
+height:100vh;
+}
+
+/* HEADER */
+#header{
+padding:10px;
+border-bottom:1px solid cyan;
+text-align:center;
+}
+
+/* LAYOUT */
+#container{
+display:flex;
+height:calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+#rooms{
+width:220px;
+border-right:1px solid cyan;
+padding:10px;
+}
+
+.roomBtn{
+width:100%;
+margin:5px 0;
+}
+
+/* CONTENT */
+#content{
+flex:1;
+padding:10px;
+}
+
+/* CHAT */
+#chat{
+height:45%;
+overflow:auto;
+border:1px solid cyan;
+padding:10px;
+}
+
+/* PROFILE */
+#profile{
+border:1px solid cyan;
+padding:10px;
+margin-top:10px;
+}
+
+/* MUSIC */
+iframe{
+width:100%;
+height:200px;
+border:none;
+margin-top:10px;
 }
 </style>
 </head>
@@ -76,130 +114,127 @@ cursor:pointer;
 <!-- LOGIN -->
 <div id="login">
 <div class="box">
-<h2>🧠 VR METAVERSE ACCESS</h2>
+<h2>🔐 CYBER ACCESS</h2>
 <input type="password" id="pass">
 <br><br>
-<button onclick="start()">ENTER WORLD</button>
+<button onclick="unlock()">ENTER</button>
 </div>
 </div>
 
-<div id="hud">
-👑 RAMY METAVERSE VR<br>
-MOVE: WASD | LOOK: MOUSE | PORTAL: E
+<!-- MAIN -->
+<div id="main">
+
+<div id="header">
+👑 RAMY CYBER METAVERSE vFINAL 💀🔥
 </div>
 
-<div id="crosshair"></div>
+<div id="container">
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+<!-- ROOMS -->
+<div id="rooms">
+<button class="roomBtn" onclick="switchRoom('main')">MAIN CORE</button>
+<button class="roomBtn" onclick="switchRoom('cyber')">CYBER ROOM</button>
+<button class="roomBtn" onclick="switchRoom('dark')">DARK ZONE</button>
+<button class="roomBtn" onclick="switchRoom('xat')">XAT PORTAL</button>
+</div>
+
+<!-- CONTENT -->
+<div id="content">
+
+<h3 id="title">ROOM: MAIN CORE</h3>
+
+<div id="chat"></div>
+
+<!-- PROFILE -->
+<div id="profile">
+👤 NAME: RAMY<br>
+🎂 AGE: 35<br>
+🟢 STATUS: ONLINE<br>
+⚡ MODE: CYBER GOD USER<br>
+💀 LEVEL: FLAWLESS VIP ENTITY
+</div>
+
+<!-- MUSIC -->
+<h3>🎧 MUSIC CORE</h3>
+<iframe src="https://www.youtube.com/embed/4ulSR860HyU" allow="autoplay"></iframe>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
-let scene,camera,renderer;
-let move={w:false,a:false,s:false,d:false};
-let portal;
+let currentRoom="main";
 
-function start(){
-if(document.getElementById("pass").value!=="111991"){
-alert("ACCESS DENIED");
+let rooms={
+main:[],
+cyber:[],
+dark:[]
+};
+
+// 🔐 unlock
+function unlock(){
+if(document.getElementById("pass").value==="111991"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+alert("❌ WRONG PASSWORD");
+}
+}
+
+// 🌐 switch rooms
+function switchRoom(r){
+currentRoom=r;
+
+document.getElementById("title").innerText="ROOM: "+r.toUpperCase();
+
+let chat=document.getElementById("chat");
+chat.innerHTML="";
+
+if(r==="xat"){
+chat.innerHTML=`
+<iframe src="https://xat.com/2ra"></iframe>
+`;
 return;
 }
-document.getElementById("login").style.display="none";
-init();
+
+render();
 }
 
-function init(){
+// 💬 render chat
+function render(){
+let chat=document.getElementById("chat");
+chat.innerHTML="";
 
-scene=new THREE.Scene();
-scene.fog=new THREE.Fog(0x000000,5,60);
-
-camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
-camera.position.set(0,2,5);
-
-renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(innerWidth,innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// LIGHT
-let light=new THREE.PointLight(0x00ffff,2);
-light.position.set(10,10,10);
-scene.add(light);
-
-// FLOOR
-let floor=new THREE.Mesh(
-new THREE.PlaneGeometry(200,200),
-new THREE.MeshBasicMaterial({color:0x001111,wireframe:true})
-);
-floor.rotation.x=-Math.PI/2;
-scene.add(floor);
-
-// CYBER OBJECTS
-for(let i=0;i<50;i++){
-let box=new THREE.Mesh(
-new THREE.BoxGeometry(1,1,1),
-new THREE.MeshBasicMaterial({color:0x00ffff,wireframe:true})
-);
-
-box.position.set(
-(Math.random()-0.5)*50,
-1,
-(Math.random()-0.5)*50
-);
-
-scene.add(box);
-}
-
-// PORTAL
-portal=new THREE.Mesh(
-new THREE.TorusGeometry(2,0.3,16,100),
-new THREE.MeshBasicMaterial({color:0xff00ff,wireframe:true})
-);
-
-portal.position.set(0,2,-20);
-scene.add(portal);
-
-// CONTROLS
-document.addEventListener("keydown",(e)=>{
-if(e.key==="w")move.w=true;
-if(e.key==="a")move.a=true;
-if(e.key==="s")move.s=true;
-if(e.key==="d")move.d=true;
-if(e.key==="e")enterPortal();
+rooms[currentRoom].forEach(m=>{
+chat.innerHTML+=m+"<br>";
 });
-
-document.addEventListener("keyup",(e)=>{
-if(e.key==="w")move.w=false;
-if(e.key==="a")move.a=false;
-if(e.key==="s")move.s=false;
-if(e.key==="d")move.d=false;
-});
-
-animate();
 }
 
-// MOVE SYSTEM
-function animate(){
+// 🧠 AI simple
+function ai(msg){
+msg=msg.toLowerCase();
 
-requestAnimationFrame(animate);
+if(msg.includes("ramy"))
+return "👑 RAMY IS THE CORE CYBER ENTITY";
 
-if(move.w)camera.position.z-=0.15;
-if(move.s)camera.position.z+=0.15;
-if(move.a)camera.position.x-=0.15;
-if(move.d)camera.position.x+=0.15;
+if(currentRoom==="dark")
+return "☠ DARK SYSTEM ACTIVE";
 
-// portal glow animation
-portal.rotation.x+=0.01;
-portal.rotation.y+=0.02;
-
-renderer.render(scene,camera);
+return "AI RESPONSE OK";
 }
 
-// PORTAL ACTION
-function enterPortal(){
-let dist=camera.position.distanceTo(portal.position);
+// 📩 send
+function send(){
+let msg=document.getElementById("msg").value;
 
-if(dist<5){
-window.open("https://xat.com/2ra","_blank");
-}
+rooms[currentRoom].push("YOU: "+msg);
+rooms[currentRoom].push("AI: "+ai(msg));
+
+document.getElementById("msg").value="";
+render();
 }
 
 </script>
