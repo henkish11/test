@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NEXT EVOLUTION WORLD</title>
+<title>METAVERSE ASCENSION - RAMY</title>
 
 <style>
 body{
@@ -10,6 +10,7 @@ margin:0;
 background:black;
 color:#00ffe5;
 font-family:Arial;
+overflow:hidden;
 }
 
 #login{
@@ -19,12 +20,13 @@ height:100%;
 display:flex;
 justify-content:center;
 align-items:center;
+background:black;
 }
 
 .box{
 padding:30px;
 border:1px solid cyan;
-box-shadow:0 0 30px cyan;
+box-shadow:0 0 40px cyan;
 text-align:center;
 }
 
@@ -33,7 +35,6 @@ padding:10px;
 background:black;
 border:1px solid cyan;
 color:cyan;
-margin:5px;
 }
 
 button{
@@ -48,22 +49,47 @@ margin:5px;
 /* MAIN */
 #main{
 display:none;
+height:100vh;
+}
+
+#top{
+padding:10px;
+border-bottom:1px solid cyan;
+text-align:center;
+}
+
+#content{
+display:flex;
+height:calc(100vh - 60px);
+}
+
+/* LEFT ROOMS */
+#rooms{
+width:200px;
+border-right:1px solid cyan;
 padding:10px;
 }
 
+#chatBox{
+flex:1;
+padding:10px;
+}
+
+.roomBtn{
+width:100%;
+margin:5px 0;
+}
+
+/* CHAT */
 #chat{
-height:200px;
+height:70%;
 overflow:auto;
 border:1px solid cyan;
 padding:10px;
-margin-top:10px;
 }
 
-/* USER PANEL */
-#userBox{
-border:1px solid cyan;
-padding:10px;
-margin-top:10px;
+input.msg{
+width:80%;
 }
 </style>
 </head>
@@ -73,9 +99,9 @@ margin-top:10px;
 <!-- LOGIN -->
 <div id="login">
 <div class="box">
-<h2>🔐 ACCESS</h2>
+<h2>🌐 METAVERSE ACCESS</h2>
 <input type="password" id="pass">
-<br>
+<br><br>
 <button onclick="unlock()">ENTER</button>
 </div>
 </div>
@@ -83,30 +109,33 @@ margin-top:10px;
 <!-- MAIN -->
 <div id="main">
 
-<h2>🌐 NEXT EVOLUTION WORLD</h2>
+<div id="top">
+👑 RAMY METAVERSE ASCENSION SYSTEM 🛰️💀
+</div>
+
+<div id="content">
 
 <!-- ROOMS -->
-<button onclick="switchRoom('main')">MAIN</button>
-<button onclick="switchRoom('lab')">LAB</button>
-<button onclick="switchRoom('dark')">DARK</button>
+<div id="rooms">
+<button class="roomBtn" onclick="switchRoom('main')">MAIN CORE</button>
+<button class="roomBtn" onclick="switchRoom('cyber')">CYBER ROOM</button>
+<button class="roomBtn" onclick="switchRoom('dark')">DARK NODE</button>
+<button class="roomBtn" onclick="switchRoom('xat')">XAT ROOM</button>
+</div>
 
-<h3 id="roomTitle">ROOM: MAIN</h3>
+<!-- CHAT AREA -->
+<div id="chatBox">
 
-<!-- CHAT -->
+<h3 id="title">ROOM: MAIN CORE</h3>
+
 <div id="chat"></div>
 
-<input id="msg">
+<input class="msg" id="msg">
 <button onclick="send()">SEND</button>
 
-<hr>
+</div>
 
-<!-- USER ID LOOKUP -->
-<h3>👤 USER ID LOOKUP</h3>
-<input id="uid" placeholder="Enter User ID">
-<button onclick="getUser()">SEARCH</button>
-
-<div id="userBox">NO USER LOADED</div>
-
+</div>
 </div>
 
 <script>
@@ -115,83 +144,79 @@ let currentRoom="main";
 
 let rooms={
 main:[],
-lab:[],
+cyber:[],
 dark:[]
 };
 
-// 👤 Fake users database (داخل النظام فقط)
-let users={
-"1001":{name:"RAMY",age:35,status:"ONLINE 🟢",room:"MAIN"},
-"1002":{name:"ALI",age:22,status:"OFFLINE ⚫",room:"LAB"},
-"1003":{name:"DARK-X",age:99,status:"UNKNOWN ☠",room:"DARK"}
-};
-
-// 🔐 login
+// 🔐 unlock
 function unlock(){
 if(document.getElementById("pass").value==="111991"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 }else{
-alert("❌ WRONG PASSWORD");
+alert("❌ WRONG CODE");
 }
 }
 
-// 🌐 rooms
+// 🌐 switch rooms
 function switchRoom(r){
+
 currentRoom=r;
-document.getElementById("roomTitle").innerText="ROOM: "+r.toUpperCase();
+
+document.getElementById("title").innerText="ROOM: "+r.toUpperCase();
+
+let chat=document.getElementById("chat");
+
+chat.innerHTML="";
+
+if(r==="xat"){
+chat.innerHTML=`
+<iframe src="https://xat.com/2ra"
+style="width:100%;height:400px;border:none;"></iframe>
+`;
+return;
+}
+
 render();
 }
 
-// 💬 chat
+// 💬 render chat
 function render(){
 let chat=document.getElementById("chat");
 chat.innerHTML="";
+
 rooms[currentRoom].forEach(m=>{
 chat.innerHTML+=m+"<br>";
 });
 }
 
-// 🧠 AI simple
+// 🧠 fake AI
 function ai(msg){
 msg=msg.toLowerCase();
 
-if(msg.includes("ramy")) return "👑 CORE USER DETECTED";
-if(currentRoom==="dark") return "☠ DARK SIGNAL ACTIVE";
-if(currentRoom==="lab") return "🧪 LAB PROCESS RUNNING";
+if(msg.includes("ramy"))
+return "👑 RAMY IS THE CORE ENTITY";
 
-return "AI RESPONSE OK";
+if(currentRoom==="dark")
+return "☠ DARK NODE ACTIVE";
+
+return "SYSTEM RESPONSE OK";
 }
 
-// 📩 send message
+// 📩 send
 function send(){
 let msg=document.getElementById("msg").value;
+
+if(currentRoom==="xat"){
+alert("Use XAT room directly");
+return;
+}
 
 rooms[currentRoom].push("YOU: "+msg);
 rooms[currentRoom].push("AI: "+ai(msg));
 
 document.getElementById("msg").value="";
 render();
-}
-
-// 👤 USER ID SEARCH
-function getUser(){
-let id=document.getElementById("uid").value;
-
-let u=users[id];
-
-let box=document.getElementById("userBox");
-
-if(u){
-box.innerHTML=`
-NAME: ${u.name}<br>
-AGE: ${u.age}<br>
-STATUS: ${u.status}<br>
-ROOM: ${u.room}
-`;
-}else{
-box.innerHTML="❌ USER NOT FOUND";
-}
 }
 
 </script>
