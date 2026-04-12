@@ -26,5 +26,6 @@ const code='1234';
 function enterPortal(){const p=document.getElementById('pass');if(p.value===code){document.getElementById('login').style.display='none';document.getElementById('inside').style.display='flex';spawn();tick();}else{p.classList.add('error');setTimeout(()=>p.classList.remove('error'),400);p.value='';p.placeholder='شفرة خاطئة';}}
 function tick(){setInterval(()=>{clock.textContent=new Date().toLocaleTimeString('ar-EG')},1000)}
 function spawn(){for(let i=0;i<80;i++){let s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*8+'s';s.style.opacity=Math.random();particles.appendChild(s)}}
+document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*20;const y=(e.clientY/window.innerHeight-.5)*20;document.querySelector('.name').style.transform=`translate(${x}px,${y}px)`;});setInterval(()=>{document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`},4000);
 </script>
 </body></html>
