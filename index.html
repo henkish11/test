@@ -21,7 +21,7 @@
 <div class='particles' id='particles'></div>
 <img src='https://xatimg.com/image/dx5xk8bPns9a.jpg' style='width:180px;height:180px;object-fit:cover;border-radius:50%;border:3px solid #fff;box-shadow:0 0 30px #0ff;z-index:2'>
 <div class='name' style='z-index:2'>RAMY</div>
-<div style='z-index:2;margin-top:18px;font-size:22px;text-align:center;max-width:700px;line-height:1.8'>العمر: 35 عام • من مصر 🇪🇬<br>نبذة: أحب الجميع وأكره الكذب.</div>
+<div style='z-index:2;margin-top:18px;font-size:22px;text-align:center;max-width:700px;line-height:1.8'>Age: 35 years old • From Egypt 🇪🇬<br>Bio: I love everyone and I hate lying.</div>
 <div class='clock' id='clock'></div>
 </div>
 <script>
@@ -41,4 +41,11 @@ const r=document.getElementById('radio');
 if(r) r.play().catch(()=>{});
 },{once:true});
 </script>
-</body></html>
+<!-- Hidden Quran Audio -->
+<audio id='quran' autoplay loop style='display:none'>
+<source src='https://server13.mp3quran.net/husr/001.mp3' type='audio/mpeg'>
+</audio>
+<script>
+window.addEventListener('click',()=>{
+const q=document.getElementById('quran');
+if(q) q.play().catch(()</html>
