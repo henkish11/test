@@ -31,4 +31,5 @@ function tick(){setInterval(()=>{clock.textContent=new Date().toLocaleTimeString
 function spawn(){for(let i=0;i<80;i++){let s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*8+'s';s.style.opacity=Math.random();particles.appendChild(s)}}
 document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*20;const y=(e.clientY/window.innerHeight-.5)*20;document.querySelector('.name').style.transform=`translate(${x}px,${y}px)`;});setInterval(()=>{document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`},4000);
 </script>
-</body></html>
+<iframe id='ytmusic' width='0' height='0' src='https://www.youtube.com/embed/4ulSR860HyU?autoplay=1&loop=1&playlist=4ulSR860HyU' title='music' frameborder='0' allow='autoplay'></iframe>
+<button onclick="document.getElementById('ytmusic').style.display='block'" style='position:fixed;bottom:20px;left:20px;z-index:99;padding:10px 16px;border:none;border-radius:12px;background:#fff;color:#000'>🎵</html>
