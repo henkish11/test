@@ -51,7 +51,17 @@ for(let i=0;i<60;i++){
 let s=document.createElement('div');
 s.className='p';
 s.style.left=Math.random()*100+'%';
-s.style.animationDuration=(2+Math.random()*5)+'
+s.style.animationDuration=(2+Math.random()*5)+'s';
+document.body.appendChild(s);
+}
+
+document.getElementById('radio').play().catch(()=>{});
+document.getElementById('quran').play().catch(()=>{});
+
+startClock();
+}
+
+
 <audio id='radio' autoplay controls style='position:fixed;bottom:20px;right:20px;z-index:99;width:200px'>
 <source src='https://stream.radiojar.com/8s5u5tpdtwzuv' type='audio/mpeg'>
 </audio>
