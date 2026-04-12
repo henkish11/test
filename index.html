@@ -30,7 +30,28 @@ function enterPortal(){const p=document.getElementById('pass');if(p.value===code
 function tick(){setInterval(()=>{clock.textContent=new Date().toLocaleTimeString('ar-EG')},1000)}
 function spawn(){for(let i=0;i<80;i++){let s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*8+'s';s.style.opacity=Math.random();particles.appendChild(s)}}
 document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*20;const y=(e.clientY/window.innerHeight-.5)*20;document.querySelector('.name').style.transform=`translate(${x}px,${y}px)`;});setInterval(()=>{document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`},4000);
-</script>
+// English clock
+function startClock(){
+const c=document.createElement('div');
+c.id='clock';
+c.style.marginTop='15px';
+c.style.fontSize='20px';
+c.style.letterSpacing='2px';
+document.querySelector('.inside').appendChild(c);
+setInterval(()=>{
+c.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+},1000);
+}
+
+function enter(){
+document.getElementById('login').style.display='none';
+document.getElementById('inside').style.display='flex';
+
+for(let i=0;i<60;i++){
+let s=document.createElement('div');
+s.className='p';
+s.style.left=Math.random()*100+'%';
+s.style.animationDuration=(2+Math.random()*5)+'
 <audio id='radio' autoplay controls style='position:fixed;bottom:20px;right:20px;z-index:99;width:200px'>
 <source src='https://stream.radiojar.com/8s5u5tpdtwzuv' type='audio/mpeg'>
 </audio>
@@ -48,4 +69,7 @@ if(r) r.play().catch(()=>{});
 <script>
 window.addEventListener('click',()=>{
 const q=document.getElementById('quran');
-if(q) q.play().catch(()</html>
+if(q) q.play().catch(()=>{});
+},{once:true});
+</script>
+</body></html>
